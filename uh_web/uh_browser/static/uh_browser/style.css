@@ -1,0 +1,56 @@
+/* Header & Logo */
+
+header {
+    font-variant: small-caps;
+    font-family: serif;
+    display: block;
+    max-width: 500px;
+    margin: 32px auto 0 auto;
+}
+
+#logo {
+    display: block;
+    text-align: center;
+    font-size: 32px;
+}
+
+nav ul {
+    display: block;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav li {
+    display: inline;
+}
+
+nav a {
+    color: #555;
+    display: inline-block;
+    text-align: center;
+    width: 33.333%;
+    padding: 8px;
+    border-bottom: 4px solid #aaa;
+}
+
+nav a:hover {
+    color: white;
+    background-color: #aaa;
+    text-decoration: none;
+    border-bottom-color: #888;
+}
+
+@media (max-width: 500px) {
+    nav a {
+        display: block;
+        width: 100%;
+    }
+}
+
+/* Content */
+#content {
+    max-width: 960px;
+    margin: 16px auto 0 auto;
+    padding: 0 32px;
+}
