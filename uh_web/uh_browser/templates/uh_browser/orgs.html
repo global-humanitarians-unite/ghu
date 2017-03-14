@@ -1,5 +1,21 @@
 {% extends 'uh_browser/layout.html' %}
+{% load static %}
+{% block styles %}
+    <link href="{% static "/uh_browser/css/orgs.css" %}" rel="stylesheet">
+{% endblock %}
 {% block title %}Organizations{% endblock %}
 {% block content %}
-    <p>This is the organizations page</p>
+    <ul id="results">
+        {% for org in results %}
+            <li><a href="#">
+                <div class="results-name">{{ org.name }}</div><br>
+                <div class="results-loc">{{ org.loc }}</div>
+                <ul class="results-categs">
+                    {% for categ in org.categs %}
+                        <li>{{ categ }}</li>
+                    {% endfor %}
+                </ul>
+            </a></li>
+        {% endfor %}
+    </ul>
 {% endblock %}

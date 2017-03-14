@@ -1,0 +1,50 @@
+#results {
+    list-style-type: none;
+    padding: 0;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+#results > li {
+    display: block;
+    width: 100%;
+}
+
+#results > li > a {
+    /* Use default Bootstrap color */
+    color: #333;
+    display: block;
+    width: 100%;
+    padding: 8px;
+    border-top: 1px solid #aaa;
+}
+
+#results > li > a:hover {
+    /* Use default Bootstrap color */
+    background-color: #eee;
+}
+
+#results > li > a:hover .results-name {
+    text-decoration: underline;
+}
+
+.results-categs {
+    float: right;
+    list-style-type: none;
+    padding: 0;
+}
+
+.results-categs li {
+    display: inline-block;
+    list-style-type: none;
+    padding: 0;
+    margin-right: 4px;
+}
+
+.results-name {
+    font-weight: bold;
+}
+
+.results-name, .results-loc {
+    display: inline-block;
+}
