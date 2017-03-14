@@ -1,5 +1,52 @@
 {% extends 'uh_browser/layout.html' %}
+{% load static %}
 {% block title %}Home{% endblock %}
+{% block styles %}
+    <link href="{% static "/uh_browser/css/home.css" %}" rel="stylesheet">
+{% endblock %}
 {% block content %}
-    <p>This is the home page!</p>
+    <div class="container">
+        <div class="row">
+            <div id="feat-news" class="feat col-md-6">
+                <h1>News</h2>
+                <ul>
+                    <li>
+                        <h2>Wow Something Important Happened</h2>
+                        <div class="feat-date">January 1st, 2017</div>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rhoncus turpis leo, in scelerisque turpis dapibus at. Morbi ut lacus enim. Suspendisse sit amet lacus libero. Sed dui orci, condimentum sit amet auctor ac, euismod nec velit. Aenean lobortis eros urna, ac elementum lacus rhoncus sit amet. Nullam suscipit lorem eu mi suscipit rhoncus. Cras sed turpis sed urna luctus volutpat a sit amet odio. Vivamus ac purus sed metus pulvinar dictum. Cras non eros in metus congue aliquam vitae in ex. Duis consectetur urna ut erat vestibulum tristique. Aenean non tellus magna. Nam posuere non velit non faucibus.</p>
+                        <p>Etiam posuere leo diam, at condimentum leo sagittis eget. In vitae hendrerit ex. Vivamus sollicitudin consectetur ex, sit amet bibendum nisl. Suspendisse fringilla hendrerit nunc. Duis non suscipit metus. Proin eleifend finibus leo, ac venenatis dui tincidunt a. Aenean et feugiat lectus. Vivamus at tempus magna. Aenean sed pellentesque risus. In justo nulla, rutrum ut diam in, pretium convallis lectus. Vivamus id mi efficitur, efficitur nisi eu, auctor enim.</p>
+                    </li>
+                    <li>
+                        <h2>Dang, Someting <em>Huge</em> Happened Wow</h2>
+                        <div class="feat-date">January 1st, 2017</div>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rhoncus turpis leo, in scelerisque turpis dapibus at. Morbi ut lacus enim. Suspendisse sit amet lacus libero. Sed dui orci, condimentum sit amet auctor ac, euismod nec velit. Aenean lobortis eros urna, ac elementum lacus rhoncus sit amet. Nullam suscipit lorem eu mi suscipit rhoncus. Cras sed turpis sed urna luctus volutpat a sit amet odio. Vivamus ac purus sed metus pulvinar dictum. Cras non eros in metus congue aliquam vitae in ex. Duis consectetur urna ut erat vestibulum tristique. Aenean non tellus magna. Nam posuere non velit non faucibus.</p>
+                        <p>Etiam posuere leo diam, at condimentum leo sagittis eget. In vitae hendrerit ex. Vivamus sollicitudin consectetur ex, sit amet bibendum nisl. Suspendisse fringilla hendrerit nunc. Duis non suscipit metus. Proin eleifend finibus leo, ac venenatis dui tincidunt a. Aenean et feugiat lectus. Vivamus at tempus magna. Aenean sed pellentesque risus. In justo nulla, rutrum ut diam in, pretium convallis lectus. Vivamus id mi efficitur, efficitur nisi eu, auctor enim.</p>
+                    </li>
+                    <li>
+                        <h2>Let's be Honest, Nothing Happened</h2>
+                        <div class="feat-date">January 1st, 2017</div>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rhoncus turpis leo, in scelerisque turpis dapibus at. Morbi ut lacus enim. Suspendisse sit amet lacus libero. Sed dui orci, condimentum sit amet auctor ac, euismod nec velit. Aenean lobortis eros urna, ac elementum lacus rhoncus sit amet. Nullam suscipit lorem eu mi suscipit rhoncus. Cras sed turpis sed urna luctus volutpat a sit amet odio. Vivamus ac purus sed metus pulvinar dictum. Cras non eros in metus congue aliquam vitae in ex. Duis consectetur urna ut erat vestibulum tristique. Aenean non tellus magna. Nam posuere non velit non faucibus.</p>
+                        <p>Etiam posuere leo diam, at condimentum leo sagittis eget. In vitae hendrerit ex. Vivamus sollicitudin consectetur ex, sit amet bibendum nisl. Suspendisse fringilla hendrerit nunc. Duis non suscipit metus. Proin eleifend finibus leo, ac venenatis dui tincidunt a. Aenean et feugiat lectus. Vivamus at tempus magna. Aenean sed pellentesque risus. In justo nulla, rutrum ut diam in, pretium convallis lectus. Vivamus id mi efficitur, efficitur nisi eu, auctor enim.</p>
+                    </li>
+                </ul>
+            </div>
+            <div id="feat-orgs" class="feat col-md-6">
+                <h1>Featured Organizations</h2>
+                <ul>
+                    <li>
+                        <h2>The Foo Organization</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rhoncus turpis leo, in scelerisque turpis dapibus at. Morbi ut lacus enim. Suspendisse sit amet lacus libero. Sed dui orci, condimentum sit amet auctor ac, euismod nec velit. Aenean lobortis eros urna, ac elementum lacus rhoncus sit amet. Nullam suscipit lorem eu mi suscipit rhoncus. Cras sed turpis sed urna luctus volutpat a sit amet odio. Vivamus ac purus sed metus pulvinar dictum. Cras non eros in metus congue aliquam vitae in ex. Duis consectetur urna ut erat vestibulum tristique. Aenean non tellus magna. Nam posuere non velit non faucibus.</p>
+                    </li>
+                    <li>
+                        <h2>The Bar Organization</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rhoncus turpis leo, in scelerisque turpis dapibus at. Morbi ut lacus enim. Suspendisse sit amet lacus libero. Sed dui orci, condimentum sit amet auctor ac, euismod nec velit. Aenean lobortis eros urna, ac elementum lacus rhoncus sit amet. Nullam suscipit lorem eu mi suscipit rhoncus. Cras sed turpis sed urna luctus volutpat a sit amet odio. Vivamus ac purus sed metus pulvinar dictum. Cras non eros in metus congue aliquam vitae in ex. Duis consectetur urna ut erat vestibulum tristique. Aenean non tellus magna. Nam posuere non velit non faucibus.</p>
+                    </li>
+                    <li>
+                        <h2>The Baz Organization</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rhoncus turpis leo, in scelerisque turpis dapibus at. Morbi ut lacus enim. Suspendisse sit amet lacus libero. Sed dui orci, condimentum sit amet auctor ac, euismod nec velit. Aenean lobortis eros urna, ac elementum lacus rhoncus sit amet. Nullam suscipit lorem eu mi suscipit rhoncus. Cras sed turpis sed urna luctus volutpat a sit amet odio. Vivamus ac purus sed metus pulvinar dictum. Cras non eros in metus congue aliquam vitae in ex. Duis consectetur urna ut erat vestibulum tristique. Aenean non tellus magna. Nam posuere non velit non faucibus.</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 {% endblock %}
