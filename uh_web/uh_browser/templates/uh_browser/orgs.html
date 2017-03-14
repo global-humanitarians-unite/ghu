@@ -5,17 +5,25 @@
 {% endblock %}
 {% block title %}Organizations{% endblock %}
 {% block content %}
-    <ul id="results">
-        {% for org in results %}
-            <li><a href="#">
-                <div class="results-name">{{ org.name }}</div><br>
-                <div class="results-loc">{{ org.loc }}</div>
-                <ul class="results-categs">
-                    {% for categ in org.categs %}
-                        <li>{{ categ }}</li>
-                    {% endfor %}
-                </ul>
-            </a></li>
-        {% endfor %}
-    </ul>
+    <div id="container" class="container">
+        <div id="search" class="input-group">
+            <input type="text" class="form-control" placeholder="Search Organizations">
+            <span class="input-group-btn">
+                <button class="btn btn-primary" type="button"><span class="glyphicon glyphicon-search"></span></button>
+            </span>
+        </div>
+        <ul id="results">
+            {% for org in results %}
+                <li><a href="#">
+                    <div class="results-name">{{ org.name }}</div><br>
+                    <div class="results-loc">{{ org.loc }}</div>
+                    <ul class="results-categs">
+                        {% for categ in org.categs %}
+                            <li>{{ categ }}</li>
+                        {% endfor %}
+                    </ul>
+                </a></li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}
