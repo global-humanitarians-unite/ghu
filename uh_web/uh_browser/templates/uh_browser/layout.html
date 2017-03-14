@@ -3,8 +3,9 @@
     <head>
         <title>{% block title %}{% endblock %} — Uniting Humanitarians</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="{% static "/uh_browser/style.css" %}" rel="stylesheet">
+        <link href="{% static "/uh_browser/css/style.css" %}" rel="stylesheet">
         <link href="{% static "/uh_browser/bower/bootstrap/dist/css/bootstrap.min.css" %}" rel="stylesheet">
+        {% block styles %}{% endblock %}
     </head>
     <body>
         <div id="authbar">
