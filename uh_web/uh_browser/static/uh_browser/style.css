@@ -1,3 +1,9 @@
+/* Global */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
 /* Header & Logo */
 
 header {
@@ -5,7 +11,8 @@ header {
     font-family: serif;
     display: block;
     max-width: 500px;
-    margin: 32px auto 0 auto;
+    padding-top: 32px;
+    margin: 0 auto;
 }
 
 #logo {
@@ -53,4 +60,16 @@ nav a:hover {
     max-width: 960px;
     margin: 16px auto 0 auto;
     padding: 0 32px;
+}
+
+/* Footer */
+
+#footer {
+    text-align: right;
+    width: 100%;
+    background-color: #eee;
+    font-size: 12px;
+    padding: 8px;
+    position: absolute;
+    bottom: 0;
 }
