@@ -7,6 +7,10 @@
         <link href="{% static "/uh_browser/bower/bootstrap/dist/css/bootstrap.min.css" %}" rel="stylesheet">
     </head>
     <body>
+        <div id="authbar">
+            <button type="button" class="btn btn-primary btn-sm">Login</button>
+            <button type="button" class="btn btn-default btn-sm">Sign up</button>
+        </div>
         <header>
             <a id="logo" href="{% url 'uh_browser:home' %}">Uniting Humanitarians</a>
             <nav>

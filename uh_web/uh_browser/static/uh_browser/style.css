@@ -4,6 +4,12 @@ html, body {
     margin: 0;
 }
 
+#authbar {
+    margin: 0px;
+    padding: 4px;
+    text-align: right;
+}
+
 /* Header & Logo */
 
 header {
@@ -11,7 +17,7 @@ header {
     font-family: serif;
     display: block;
     max-width: 500px;
-    padding-top: 32px;
+    padding-top: 8px;
     margin: 0 auto;
 }
 
