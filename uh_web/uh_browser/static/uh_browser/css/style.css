@@ -1,7 +1,13 @@
 /* Global */
-html, body {
+html {
+    height: 100%;
+}
+
+body {
     min-height: 100%;
-    margin: 0;
+    position: relative;
+    /* For footer */
+    padding-bottom: 32px;
 }
 
 #authbar {
@@ -77,4 +83,5 @@ nav a:hover {
     font-size: 12px;
     padding: 8px;
     position: absolute;
+    bottom: 0;
 }
