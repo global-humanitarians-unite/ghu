@@ -1,5 +1,32 @@
 {% extends 'uh_browser/layout.html' %}
+{% load static %}
+{% block styles %}
+    <link href="{% static "/uh_browser/css/forum.css" %}" rel="stylesheet">
+{% endblock %}
 {% block title %}Forum{% endblock %}
 {% block content %}
-    <p>This is the forum</p>
+    <div id="categs">
+        {# Remove whitespace-only elements between categ-entries #}
+        {% spaceless %}
+        {% for categ in categs %}
+            {% if forloop.counter0|divisibleby:3 %}
+                {# In interior rows, close <div class="categs-row"> opened below in a previous iteration #}
+                {% if not forloop.first %}
+                    </div>
+                {% endif %}
+                <div class="categs-row">
+            {% endif %}
+            {% with "/uh_browser/img/categ-"|add:categ.name|add:".png" as image_url %}
+                <a class="categs-entry" href="#">
+                    <img src="{% static image_url %}">
+                    <div class="categs-name">{{ categ.name|title }}</div>
+                </a>
+            {% endwith %}
+            {# On the last row, close <div class="categs-row"> opened above #}
+            {% if forloop.last %}
+                </div>
+            {% endif %}
+        {% endfor %}
+        {% endspaceless %}
+    </div>
 {% endblock %}
