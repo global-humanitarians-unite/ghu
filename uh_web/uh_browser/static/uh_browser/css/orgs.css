@@ -29,7 +29,6 @@
 }
 
 #results > li > a:hover {
-    /* Use default Bootstrap color */
     background-color: #eee;
 }
 
