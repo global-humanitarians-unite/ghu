@@ -36,6 +36,11 @@
     text-decoration: underline;
 }
 
+#results > li > a img {
+    width: 20px;
+    height: 20px;
+}
+
 .results-categs {
     float: right;
     list-style-type: none;

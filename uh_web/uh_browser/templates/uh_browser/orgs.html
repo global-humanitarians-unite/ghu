@@ -19,7 +19,9 @@
                     <div class="results-loc">{{ org.loc }}</div>
                     <ul class="results-categs">
                         {% for categ in org.categs %}
-                            <li>{{ categ }}</li>
+                            {% with "/uh_browser/img/categ-"|add:categ.name|add:".png" as image_url %}
+                                <li><img title="{{ categ.name|title }}" src="{% static image_url %}"></li>
+                            {% endwith %}
                         {% endfor %}
                     </ul>
                 </a></li>
