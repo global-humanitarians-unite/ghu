@@ -1,7 +1,7 @@
-Uniting Humanitarians
-=====================
+Humanitarians United
+====================
 
-This is the Uniting Humanitarians website prototype.
+This is the Humanitarians United website prototype.
 
 Setup
 -----
@@ -16,5 +16,5 @@ Running a Debug Server
 
 After activating the virtualenv:
 
-    $ cd uh_web
+    $ cd hu_web
     $ ./manage.py runserver
