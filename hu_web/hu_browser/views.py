@@ -15,10 +15,10 @@ categs = [
 ]
 
 def home(request):
-    return render(request, 'uh_browser/home.html', {})
+    return render(request, 'hu_browser/home.html', {})
 
 def about(request):
-    return render(request, 'uh_browser/about.html', {})
+    return render(request, 'hu_browser/about.html', {})
 
 def orgs(request):
     # XXX Remove this when models are finished
@@ -27,7 +27,7 @@ def orgs(request):
         'results': [Org('An Organization', 'Atlanta, GA, United States', categs)]*64,
     }
 
-    return render(request, 'uh_browser/orgs.html', ctx)
+    return render(request, 'hu_browser/orgs.html', ctx)
 
 def forum(request):
     # XXX Remove this when models are finished
@@ -36,4 +36,4 @@ def forum(request):
         'categs': categs,
     }
 
-    return render(request, 'uh_browser/forum.html', ctx)
+    return render(request, 'hu_browser/forum.html', ctx)

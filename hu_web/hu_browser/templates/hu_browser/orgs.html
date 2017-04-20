@@ -1,7 +1,7 @@
-{% extends 'uh_browser/layout.html' %}
+{% extends 'hu_browser/layout.html' %}
 {% load static %}
 {% block styles %}
-    <link href="{% static "/uh_browser/css/orgs.css" %}" rel="stylesheet">
+    <link href="{% static "/hu_browser/css/orgs.css" %}" rel="stylesheet">
 {% endblock %}
 {% block title %}Organizations{% endblock %}
 {% block content %}
@@ -19,7 +19,7 @@
                     <div class="results-loc">{{ org.loc }}</div>
                     <ul class="results-categs">
                         {% for categ in org.categs %}
-                            {% with "/uh_browser/img/categ-"|add:categ.name|add:".png" as image_url %}
+                            {% with "/hu_browser/img/categ-"|add:categ.name|add:".png" as image_url %}
                                 <li><img title="{{ categ.name|title }}" src="{% static image_url %}"></li>
                             {% endwith %}
                         {% endfor %}
