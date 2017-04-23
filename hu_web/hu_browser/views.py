@@ -23,8 +23,15 @@ def about(request):
 def orgs(request):
     # XXX Remove this when models are finished
 
+    examples = [
+        Org('IXGEN, Inc.', 'Lithonia, GA, United States', [Categ('community'), Categ('youth')]),
+        Org('Clean Water Kenya', 'Ligonier, PA, United States', [Categ('health')]),
+        Org('Global Paint for Charity', 'Atlanta, GA, United States', [Categ('general')]),
+    ]
+    fluff = [Org('An Organization', 'Atlanta, GA, United States', categs)]*32
+
     ctx = {
-        'results': [Org('An Organization', 'Atlanta, GA, United States', categs)]*64,
+        'results': fluff + examples + fluff,
     }
 
     return render(request, 'hu_browser/orgs.html', ctx)
