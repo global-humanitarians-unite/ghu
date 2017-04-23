@@ -61,3 +61,7 @@
 .results-name, .results-loc {
     display: inline-block;
 }
+
+#results .result-hidden {
+    display: none;
+}

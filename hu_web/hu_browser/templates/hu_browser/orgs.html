@@ -4,12 +4,15 @@
     <link href="{% static "/hu_browser/css/orgs.css" %}" rel="stylesheet">
 {% endblock %}
 {% block title %}Organizations{% endblock %}
+{% block scripts %}
+    <script src="{% static "/hu_browser/js/orgs.js" %}"></script>
+{% endblock %}
 {% block content %}
     <div id="container" class="container">
         <div id="search" class="input-group">
-            <input type="text" class="form-control" placeholder="Search Organizations">
+            <input id="org-search-field" type="text" class="form-control" placeholder="Search Organizations">
             <span class="input-group-btn">
-                <button class="btn btn-primary" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                <button id="org-search-btn" class="btn btn-primary" type="button"><span class="glyphicon glyphicon-search"></span></button>
             </span>
         </div>
         <ul id="results">
