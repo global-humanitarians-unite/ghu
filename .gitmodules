@@ -1,0 +1,3 @@
+[submodule "hu_web/ghu-toolkits"]
+	path = hu_web/ghu-toolkits
+	url = https://github.com/global-humanitarians-unite/ghu-toolkits.git
