@@ -1,4 +1,4 @@
-"""hu_web URL Configuration
+"""ghu_web URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.10/topics/http/urls/
@@ -17,7 +17,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'^', include('hu_browser.urls')),
+    url(r'^', include('ghu_browser.urls')),
     url(r'^toolkits/', include('ghu_toolkits.urls')),
     url(r'^admin/', admin.site.urls),
 ]

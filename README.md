@@ -1,7 +1,7 @@
-Humanitarians United
-====================
+Global Humanitarians Unite
+==========================
 
-This is the Humanitarians United website prototype.
+This is the Global Humanitarians Unite website prototype.
 
 Setup
 -----
@@ -26,7 +26,7 @@ Running a Debug Server
 
 After activating the virtualenv:
 
-    $ cd hu_web
+    $ cd ghu_web
     $ ./manage.py runserver
 
 [1]: https://github.com/global-humanitarians-unite/ghu_toolkits

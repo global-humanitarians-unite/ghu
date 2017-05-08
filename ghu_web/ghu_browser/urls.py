@@ -1,7 +1,7 @@
 from django.conf.urls import url
-from hu_browser import views
+from ghu_browser import views
 
-app_name = 'hu_browser'
+app_name = 'ghu_browser'
 
 urlpatterns = [
     url('^$', views.home, name='home'),
