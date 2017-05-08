@@ -4,7 +4,7 @@
         <title>{% block title %}{% endblock %} — Humanitarians United</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="{% static "/hu_browser/css/style.css" %}" rel="stylesheet">
-        <link href="{% static "/hu_browser/bower/bootstrap/dist/css/bootstrap.min.css" %}" rel="stylesheet">
+        <link href="{% static "/bootstrap/dist/css/bootstrap.min.css" %}" rel="stylesheet">
         {% block styles %}{% endblock %}
     </head>
     <body>
@@ -84,8 +84,8 @@
         </div>
 
         {# Scripts #}
-        <script src="{% static "/hu_browser/bower/jquery/dist/jquery.min.js" %}"></script>
-        <script src="{% static "/hu_browser/bower/bootstrap/dist/js/bootstrap.min.js" %}"></script>
+        <script src="{% static "/jquery/dist/jquery.min.js" %}"></script>
+        <script src="{% static "/bootstrap/dist/js/bootstrap.min.js" %}"></script>
         {% block scripts %}{% endblock %}
     </body>
 </html>
