@@ -1,4 +1,7 @@
 
+# static files
+common-static/*
+
 # Created by https://www.gitignore.io/api/python,django
 
 ### Django ###
@@ -100,6 +103,3 @@ ENV/
 .ropeproject
 
 # End of https://www.gitignore.io/api/python,django
-
-#static files
-common-static/bower
