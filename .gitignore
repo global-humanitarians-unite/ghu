@@ -100,3 +100,6 @@ ENV/
 .ropeproject
 
 # End of https://www.gitignore.io/api/python,django
+
+#static files
+common-static/bower
