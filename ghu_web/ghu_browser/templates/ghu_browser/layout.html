@@ -1,7 +1,7 @@
 {% load static %}<!DOCTYPE html>
 <html>
     <head>
-        <title>{% block title %}{% endblock %} — Humanitarians United</title>
+        <title>{% block title %}{% endblock %} — Global Humanitarians Unite</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="{% static "/ghu_browser/css/style.css" %}" rel="stylesheet">
         <link href="{% static "/bootstrap/dist/css/bootstrap.min.css" %}" rel="stylesheet">
@@ -13,7 +13,7 @@
             <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#register-modal">Sign up</button>
         </div>
         <header>
-            <a id="logo" href="{% url 'ghu_browser:home' %}">Humanitarians United</a>
+            <a id="logo" href="{% url 'ghu_browser:home' %}">Global Humanitarians Unite</a>
             <nav>
                 <ul>
                     <li><a href="{% url 'ghu_browser:about' %}">About</a></li><!--
@@ -23,7 +23,7 @@
             </nav>
         </header>
         <div id="content">{% block content %}{% endblock %}</div>
-        <div id="footer">&copy; 2017 Humanitarians United &mdash; <a href="https://github.com/humanitarians-united/hu">Source code</a></div>
+        <div id="footer">&copy; 2017 Global Humanitarians Unite &mdash; <a href="https://github.com/humanitarians-united/hu">Source code</a></div>
 
         {# Account modals #}
         <div id="login-modal" class="modal fade" tabindex="-1" role="dialog">
