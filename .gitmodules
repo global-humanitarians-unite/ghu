@@ -1,4 +1,4 @@
-[submodule "hu_web/ghu_toolkits"]
-	path = hu_web/ghu_toolkits
+[submodule "ghu_web/ghu_toolkits"]
+	path = ghu_web/ghu_toolkits
 	url = https://github.com/global-humanitarians-unite/ghu_toolkits.git
-	branch = master
+    branch = master
