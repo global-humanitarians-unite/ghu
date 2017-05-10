@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ghu',
-    'ghu_browser',
+    'ghu_main',
     'ghu_toolkits',
 ]
 
