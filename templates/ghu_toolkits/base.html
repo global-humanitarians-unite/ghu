@@ -1,0 +1,18 @@
+{% extends 'ghu_global/layout.html' %}
+{% block site_name %}Toolkits - GHU{% endblock %}
+{% block styles %}
+    {{ block.super }}
+    <style>
+        nav a {
+            /* Note this matches the number of nav links defined below */
+            width: 33.333%;
+        }
+    </style>
+{% endblock %}
+{% block header %}
+    <a id="logo" href="{% url 'ghu_toolkits:home' %}">GHU Toolkits</a>
+    <nav>
+        <ul>
+        </ul>
+    </nav>
+{% endblock %}
