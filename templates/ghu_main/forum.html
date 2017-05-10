@@ -16,7 +16,7 @@
                 {% endif %}
                 <div class="categs-row">
             {% endif %}
-            {% with "/ghu_browser/img/categ-"|add:categ.name|add:".png" as image_url %}
+            {% with "/ghu_main/img/categ-"|add:categ.name|add:".png" as image_url %}
                 <a class="categs-entry" href="#">
                     <img src="{% static image_url %}">
                     <div class="categs-name">{{ categ.name|title }}</div>
