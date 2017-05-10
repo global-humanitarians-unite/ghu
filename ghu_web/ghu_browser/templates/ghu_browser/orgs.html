@@ -1,10 +1,12 @@
-{% extends 'ghu_browser/layout.html' %}
+{% extends 'ghu_browser/base.html' %}
 {% load static %}
 {% block styles %}
+    {{ block.super }}
     <link href="{% static "/ghu_browser/css/orgs.css" %}" rel="stylesheet">
 {% endblock %}
 {% block title %}Organizations{% endblock %}
 {% block scripts %}
+    {{ block.super }}
     <script src="{% static "/ghu_browser/js/orgs.js" %}"></script>
 {% endblock %}
 {% block content %}
