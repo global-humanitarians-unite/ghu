@@ -1,7 +1,8 @@
-{% extends 'ghu_main/layout.html' %}
+{% extends 'ghu_main/base.html' %}
 {% load static %}
 {% block title %}Home{% endblock %}
 {% block styles %}
+    {{ block.super }}
     <link href="{% static "/ghu_main/css/home.css" %}" rel="stylesheet">
 {% endblock %}
 {% block content %}

@@ -1,0 +1,21 @@
+{% extends 'ghu_global/layout.html' %}
+{% block site_name %}Global Humanitarians Unite{% endblock %}
+{% block styles %}
+    {{ block.super }}
+    <style>
+        nav a {
+            /* Note this matches the number of nav links defined below */
+            width: 33.333%;
+        }
+    </style>
+{% endblock %}
+{% block header %}
+    <a id="logo" href="{% url 'ghu_main:home' %}">Global Humanitarians Unite</a>
+    <nav>
+        <ul>
+            <li><a href="{% url 'ghu_main:about' %}">About</a></li><!--
+         --><li><a href="{% url 'ghu_main:orgs' %}">Organizations</a></li><!--
+         --><li><a href="{% url 'ghu_main:forum' %}">Forum</a></li>
+        </ul>
+    </nav>
+{% endblock %}
