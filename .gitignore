@@ -1,6 +1,6 @@
 
-# static files
-/ghu_web/common-static/
+# Static files installed by bower
+/ghu_web/ghu_global/static/ghu_global/bower/
 
 # Created by https://www.gitignore.io/api/python,django
 
