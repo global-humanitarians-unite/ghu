@@ -1,6 +1,6 @@
 
 # static files
-common-static/*
+/ghu_web/common-static/
 
 # Created by https://www.gitignore.io/api/python,django
 
