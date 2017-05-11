@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ghu',
     'ghu_global',
     'ghu_main',
     'ghu_toolkits',
