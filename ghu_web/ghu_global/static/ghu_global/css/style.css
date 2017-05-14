@@ -60,7 +60,10 @@ nav a:hover {
 }
 
 @media (max-width: 500px) {
-    nav a {
+    /* Specifying `header' here is a hack to override the inline
+           <style>nav a { width: X%; }</style>
+       in base.html templates in apps */
+    header nav a {
         display: block;
         width: 100%;
     }
