@@ -13,13 +13,12 @@ Setup
     $ . venv/bin/activate
     $ pip install -r requirements.txt
 
-Because submodule for the [ghu\_toolkits][1] app [points to a particular
-commit][2], which may be older than the head of the [ghu\_toolkits][1]
-master branch, you should run
+Because the app submodules [each point to a particular commit][1], which may be
+older than the head of the master branch of their respective repository, run
 
     $ git submodule update --remote
 
-whenever new commits are made in the [ghu\_toolkits][1] repository.
+whenever new commits are made in submodule repositories.
 
 Running a Debug Server
 ----------------------
@@ -29,5 +28,4 @@ After activating the virtualenv:
     $ cd ghu_web
     $ ./manage.py runserver
 
-[1]: https://github.com/global-humanitarians-unite/ghu_toolkits
-[2]: https://stackoverflow.com/a/18797720/321301
+[1]: https://stackoverflow.com/a/18797720/321301
