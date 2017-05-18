@@ -1,0 +1,25 @@
+.navbar {
+    margin-bottom: 0;
+    border-radius: 0;
+}
+.navbar-nav {
+    display:table;
+    width:100%;
+    margin: 0;
+}
+.navbar-nav > li {
+    float:none;
+    display:table-cell;
+    text-align:center;
+}
+.jumbotron {
+    height: 400px;
+    margin-bottom: 0;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+}
+#logo {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
