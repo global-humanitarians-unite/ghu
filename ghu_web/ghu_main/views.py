@@ -44,3 +44,6 @@ def forum(request):
     }
 
     return render(request, 'ghu_main/forum.html', ctx)
+
+def donate(request):
+    return render(request, 'ghu_main/donate.html', {})

@@ -8,4 +8,5 @@ urlpatterns = [
     url('^about/$', views.about, name='about'),
     url('^orgs/$', views.orgs, name='orgs'),
     url('^forum/$', views.forum, name='forum'),
+    url('^donate/$', views.donate, name='donate'),
 ]
