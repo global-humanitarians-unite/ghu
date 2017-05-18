@@ -1,34 +1,9 @@
 {% extends 'ghu_global/layout.html' %}
+{% load static %}
 {% block site_name %}Global Humanitarians Unite{% endblock %}
 {% block styles %}
     {{ block.super }}
-    <style>
-        .navbar {
-            margin-bottom: 0;
-            border-radius: 0;
-        }
-        .navbar-nav {
-            display:table;
-            width:100%;
-            margin: 0;
-        }
-        .navbar-nav > li {
-            float:none;
-            display:table-cell;
-            text-align:center;
-        }
-        .jumbotron {
-            height: 400px;
-            margin-bottom: 0;
-            border-radius: 0;
-            display: flex;
-            align-items: center;
-        }
-        #logo {
-            margin-top: 40px;
-            margin-bottom: 40px;
-        }
-    </style>
+    <link href="{% static "/ghu_main/css/base.css" %}" rel="stylesheet">
 {% endblock %}
 {% block header %}
     <div id="logo" class="container">
