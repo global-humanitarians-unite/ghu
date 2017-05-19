@@ -15,7 +15,7 @@ categs = [
 ]
 
 def home(request):
-    return render(request, 'ghu_main/home.html', {})
+    return render(request, 'ghu_main/about.html', {})
 
 def about(request):
     return render(request, 'ghu_main/about.html', {})
