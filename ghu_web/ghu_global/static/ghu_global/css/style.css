@@ -44,18 +44,24 @@ nav li {
 }
 
 nav a {
-    color: #555;
+    color: #668cff;
+    background-color: #e6ecff;
     display: inline-block;
     text-align: center;
+    font-size: 20px;
     padding: 8px;
-    border-bottom: 4px solid #aaa;
+    border-bottom: 4px solid #668cff;
 }
 
 nav a:hover {
     color: white;
-    background-color: #aaa;
     text-decoration: none;
-    border-bottom-color: #888;
+    border-bottom-color: #002db3;
+}
+
+.nav > li > a:hover, .nav > li > a:focus {
+  background-color: #b3c6ff;
+  text-decoration: none;
 }
 
 @media (max-width: 500px) {
