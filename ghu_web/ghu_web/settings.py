@@ -104,7 +104,7 @@ WSGI_APPLICATION = 'ghu_web.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.' + cfg['db']['engine'],
+        'ENGINE': 'django.db.backends.' + cfg['db']['engine'],
         'NAME': cfg['db'].get('name', None),
         'USER': cfg['db'].get('user', None),
         'PASSWORD': cfg['db'].get('password', None),
