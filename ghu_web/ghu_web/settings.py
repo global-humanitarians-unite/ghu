@@ -102,6 +102,13 @@ WSGI_APPLICATION = 'ghu_web.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
+# We don't know BASE_DIR in config.ini, so we can't include it in the path to
+# the sqlite3 database. So if the engine is sqlite3 and `name' is a relative
+# path, prepend BASE_DIR to it
+if cfg['db']['engine'] == 'sqlite3' and 'name' in cfg['db'] \
+                                    and not os.path.isabs(cfg['db']['name']):
+    cfg['db']['name'] = os.path.join(BASE_DIR, cfg['db']['name'])
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.' + cfg['db']['engine'],
