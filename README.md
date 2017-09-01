@@ -26,6 +26,6 @@ Running a Debug Server
 After activating the virtualenv:
 
     $ cd ghu_web
-    $ ./manage.py runserver
+    $ python manage.py runserver
 
 [1]: https://stackoverflow.com/a/18797720/321301
