@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
 
+"""
+Generate a 4096-bit Django SECRET_KEY and append it as a [secrets]
+section to a config.ini. Use `config.ini' if the first argument does not
+hold a path to a config.ini, and copy over `config.example.ini' if it
+does not exist.
+"""
+
 import string
 import os
 from shutil import copyfile
