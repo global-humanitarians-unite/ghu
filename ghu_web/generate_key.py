@@ -44,4 +44,4 @@ print("Appending [secrets] section with key to "
       "`{}'...".format(config_ini_path))
 open('config.ini', 'a').write(secrets_section)
 
-print('Done!')
+print('SECRET_KEY generation Done!')
