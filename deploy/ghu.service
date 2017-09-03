@@ -1,0 +1,12 @@
+[Unit]
+Description=Global Humanitarians Unite uWSGI server
+After=network.target
+
+[Service]
+Type=simple
+User=SERVER_USER_HERE
+Environment=GHU_DEPLOY_CONFIG_PATH=DEPLOY_CONFIG_PATH_HERE
+ExecStart=DEPLOY_ROOT_HERE/run.sh
+
+[Install]
+WantedBy=multi-user.target
