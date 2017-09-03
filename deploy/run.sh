@@ -14,5 +14,5 @@ worktree="$deploy_root/worktrees/current"
 exec "$venv/bin/uwsgi" --virtualenv "$venv" \
                        --module ghu_web.wsgi:application \
                        --pythonpath "$worktree/ghu_web" \
-                       --socket "$deploy_root/uwsgi.sock" \
+                       --socket "$deploy_root/sock/uwsgi.sock" \
                        --umask 0

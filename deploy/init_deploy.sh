@@ -29,20 +29,24 @@ GHU_DEPLOY_CONFIG_PATH=$deploy_root/deploy.config
 
 printf 'Creating deploy root `%s'\'' if it does not already '`
       `'exist...\n' "$deploy_root"
-mkdir -p "$deploy_root" || {
+mkdir -vp "$deploy_root" || {
     printf 'error: This user probably lacks permission to create `%s'\''. '`
           `'Try:\n'`
-          `'\tsudo mkdir /var/www/ghu\n'`
-          `'\tsudo chown jenkins:jenkins /var/www/ghu\n' "$deploy_root" >&2
+          `'\tsudo mkdir "%s"\n'`
+          `'\tsudo chown jenkins:jenkins "%s"\n' \
+          "$deploy_root" "$deploy_root" "$deploy_root" >&2
     exit 1
 }
+
+# Create sock directory, which user will need to chown to $server_user
+mkdir -vp "$deploy_root/sock"
 
 printf 'Copying over essentials to `%s'\''...\n' "$deploy_root"
 cp -iv "$repo_path/deploy/config.deploy-example.ini" "$deploy_root/config.ini"
 cp -iv "$repo_path/deploy/"{deploy.sh,deploy.config} "$deploy_root"
 # TODO: Escape the path better here, both for sed and for the bash double
 #       quotes "" in deploy.config
-sed -ie "s/ABSOLUTE_PATH_TO_DEPLOY_ROOT/${GHU_DEPLOY_CONFIG_PATH//\//\\\/}/" \
+sed -i -e "s/ABSOLUTE_PATH_TO_DEPLOY_ROOT/${deploy_root//\//\\\/}/" \
         "$deploy_root/deploy.config"
 
 # Generate a Django SECRET_KEY
@@ -50,10 +54,15 @@ sed -ie "s/ABSOLUTE_PATH_TO_DEPLOY_ROOT/${GHU_DEPLOY_CONFIG_PATH//\//\\\/}/" \
 
 printf 'Done!\n\n'`
       `'Now you can delete this repository, tweak application configuration '`
-      `'in `%s'\'', and run your first deployment! Note you will need to run '`
-      `'it as the deployment user (e.g., jenkins) like:\n'`
-      `'\tsudo -u jenkins GHU_DEPLOY_CONFIG_PATH="%s" "%s"\n' \
+      `'in `%s'\'' and deployment configuration in `%s'\'', and run your '`
+      `'first deployment! Note you will need to run it as the deployment '`
+      `'user (e.g., jenkins) like:\n'`
+      `'\tsudo -u jenkins GHU_DEPLOY_CONFIG_PATH="%s" "%s"\n'`
+      `'You also need to set up $server_user (e.g., `ghu'\'') and the directories it owns:\n'`
+      `'\tsudo useradd -Um ghu\n'`
+      `'\tsudo chown ghu:ghu "%s"\n' \
       "$deploy_root/config.ini" "$deploy_root/deploy.config" \
-      "$deploy_root/deploy.sh"
+      "$deploy_root/deploy.config" "$deploy_root/deploy.sh" \
+      "$deploy_root/sock"
 
 exit 0
