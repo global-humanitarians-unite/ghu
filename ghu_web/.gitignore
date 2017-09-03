@@ -1,6 +1,6 @@
 # config files
 *.ini
-# ...except for the example
-!config.example.ini
+# ...except for the examples
+!config.*example.ini
 # static files dir
 /static/
