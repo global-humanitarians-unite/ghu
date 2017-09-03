@@ -1,0 +1,21 @@
+.categs-entry {
+    /* 96 + 8*2 = 112 */
+    width: 112px;
+    display: inline-block;
+    padding: 0 8px;
+}
+
+.categs-entry:hover {
+    background-color: #eee;
+}
+
+.categs-row {
+    /* 96*3 + 16*3 = 336  */
+    max-width: 336px;
+    margin: 16px auto 0 auto;
+    text-align: center;
+}
+
+.categs-name {
+    font-weight: bold;
+}
