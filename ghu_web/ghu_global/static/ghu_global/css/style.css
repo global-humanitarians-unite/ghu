@@ -60,8 +60,8 @@ nav a:hover {
 }
 
 .nav > li > a:hover, .nav > li > a:focus {
-  background-color: #b3c6ff;
-  text-decoration: none;
+    background-color: #b3c6ff;
+    text-decoration: none;
 }
 
 @media (max-width: 500px) {
