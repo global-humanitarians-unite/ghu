@@ -23,6 +23,7 @@ ln -sv "$deploy_root/config.ini" ghu_web/config.ini
 
 . "$deploy_root/venv/bin/activate"
 pip install -r requirements.txt
+pip install -r deploy/requirements.txt
 cd "$worktree/ghu_web"
 python manage.py migrate
 python manage.py collectstatic

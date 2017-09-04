@@ -1,0 +1,4 @@
+# These are deployment-specific dependencies needed in addition to those
+# in /requirements.txt
+psycopg2==2.7.3.1
+uWSGI==2.0.15
