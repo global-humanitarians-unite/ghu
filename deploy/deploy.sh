@@ -74,6 +74,9 @@ ln -svnrf "$worktree" "$worktree_current_tmp"
 mv -Tv "$worktree_current_tmp" "$worktree_current"
 rm -rvf "$worktree_current_old_old"
 
+printf 'Reloading uwsgi...\n'
+sudo systemctl reload "$systemd_unit_name"
+
 printf 'Deployment done!\n'
 
 exit 0
