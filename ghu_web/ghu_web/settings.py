@@ -14,6 +14,8 @@ from configparser import ConfigParser
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# Need to disable interpolation so that `%'s in the secret_key don't
+# confuse the parser, which will try to treat them as %(interpolation)s
 cfg = ConfigParser(interpolation=None)
 # Preserve case
 cfg.optionxform = str

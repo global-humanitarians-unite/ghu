@@ -44,6 +44,8 @@ def main(argv):
     secrets_section = SECRETS_SECTION.format(key)
 
     if os.path.exists(config_ini_path):
+        # Need to disable interpolation so that `%'s in the secret_key don't
+        # confuse the parser, which will try to treat them as %(interpolation)s
         cfg = ConfigParser(interpolation=None)
         if not cfg.read(config_ini_path):
             print("`{}' exists, but couldn't parse it. Is it a directory or "
