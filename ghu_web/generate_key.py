@@ -11,6 +11,7 @@ import string
 import sys
 import os
 import os.path
+from configparser import ConfigParser
 from shutil import copyfile
 
 POPULATION = string.ascii_letters + string.punctuation + string.digits
@@ -42,7 +43,18 @@ def main(argv):
     key = ''.join(POPULATION[int(x / 256 * len(POPULATION))] for x in random_bytes)
     secrets_section = SECRETS_SECTION.format(key)
 
-    if not os.path.exists(config_ini_path):
+    if os.path.exists(config_ini_path):
+        cfg = ConfigParser(interpolation=None)
+        if not cfg.read(config_ini_path):
+            print("`{}' exists, but couldn't parse it. Is it a directory or "
+                  "something?".format(config_ini_path))
+            return 1
+        # Assume that every secrets section has a secret_key=
+        if 'secrets' in cfg:
+            print("`{}' exists and already has a [secrets] section. Don't "
+                  "need to do anything, so exiting...".format(config_ini_path))
+            return 0
+    else:
         print("`{}' does not exist, so copying over "
               "config.example.ini...".format(config_ini_path))
         copyfile('config.example.ini', config_ini_path)
