@@ -1,27 +1,22 @@
 {% extends 'ghu_global/layout.html' %}
-{% load static %}
 {% block site_name %}Global Humanitarians Unite{% endblock %}
 {% block styles %}
     {{ block.super }}
-    <link href="{% static "/ghu_main/css/base.css" %}" rel="stylesheet">
+    <style>
+        nav a {
+            /* Note this matches the number of nav links defined below */
+            width: 49%;
+        }
+    </style>
 {% endblock %}
 {% block header %}
-    <div id="logo" class="container">
-        <a href="{% url 'ghu_main:home' %}">Global Humanitarians Unite</a>
-    </div>
-
-    <div class="jumbotron">
-      <div class="container-fluid text-center">
-        <p>Save the world through togetherness</p>
-      </div>
-    </div>
-    <nav class="navbar">
-        <div class="container-fluid">
-            <ul class="nav navbar-nav">
-                <li><a href="{% url 'ghu_main:about' %}">About</a></li>
-                <li><a href="{% url 'ghu_main:orgs' %}">Organizations</a></li>
-                <li><a href="{% url 'ghu_main:forum' %}">Forum</a></li>
-            </ul>
-        </div>
+    <a id="logo" href="{% url 'ghu_main:about' %}">Global Humanitarians Unite</a>
+    <nav>
+        <ul>
+            <li><a href="{% url 'ghu_main:about' %}">About</a></li>
+            <li><a href="{% url 'ghu_main:donate' %}">Donate</a></li>
+            <!-- <li><a href="{% url 'ghu_main:orgs' %}">Organizations</a></li> -->
+            <!-- <li><a href="{% url 'ghu_main:forum' %}">Forum</a></li> -->
+        </ul>
     </nav>
 {% endblock %}
