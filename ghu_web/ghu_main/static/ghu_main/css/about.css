@@ -1,4 +1,5 @@
 h1 {
+    font: Helvetica;
     font-size: 60px;
 }
 
@@ -11,13 +12,31 @@ p {
 }
 
 .main-title {
-
+    background-color: #66e0ff;
+    padding: 100px;
 }
 
 .second-title {
-
 }
 
 .main-content {
+}
 
+.box {
+    background-color: #b3f0ff;
+}
+
+#c1 {
+    padding: 100px;
+    background-color: #80e5ff;
+}
+
+#c2 {
+    padding: 100px;
+    background-color: #99d6ff;
+}
+
+#c3 {
+    padding: 100px;
+    background-color: #80ccff;
 }
