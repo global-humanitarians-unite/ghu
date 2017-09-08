@@ -9,5 +9,5 @@ urlpatterns = [
     # url('^orgs/$', views.orgs, name='orgs'),
     # url('^forum/$', views.forum, name='forum'),
 
-    url('$', views.about, name='home')
+    url('^$', views.about, name='home')
 ]
