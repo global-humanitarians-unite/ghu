@@ -100,8 +100,8 @@ nav a:hover {
 
 /* Content */
 #content {
-    margin: 16px auto 0 auto;
-    padding: 0 32px;
+    margin: 0 auto 0 auto;
+    padding: 0 0;
 }
 
 /* Footer */
