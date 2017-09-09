@@ -1,11 +1,25 @@
-.jumbotron {
-    height: 400px;
-    margin-bottom: 0;
-    border-radius: 0;
-    display: flex;
-    align-items: center;
-}
 #logo {
     margin-top: 40px;
     margin-bottom: 40px;
+}
+
+#jumbotron-title {
+    position: relative;
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+}
+
+#jumbotron-title p {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 30px;
+    background-color: black;
+    opacity: 0.5;
+    margin-left: 30px;
+    color: #fff;
+}
+
+.jumbotron {
+    background-image: url("../img/GHU-bg-3.png");
 }
