@@ -1,46 +1,19 @@
 from django.shortcuts import render
-# XXX Remove these when models are finished
-from collections import namedtuple
-Org = namedtuple('Org', ['name', 'loc', 'categs'])
-Categ = namedtuple('Categ', ['name'])
-# XXX Put these in a fixture instead of hard-coding them
-categs = [
-    Categ('community'),
-    Categ('education'),
-    Categ('general'),
-    Categ('health'),
-    Categ('seniors'),
-    Categ('women'),
-    Categ('youth'),
-]
+from django.http import Http404
+from .models import Page
 
-def home(request):
-    return render(request, 'ghu_main/home.html', {})
+def page(request, slug=None):
+    if slug is None:
+        slug = ''
 
-def about(request):
-    return render(request, 'ghu_main/about.html', {})
+    try:
+        page = Page.objects.get(slug=slug)
+    except Page.DoesNotExist:
+        raise Http404()
 
-def orgs(request):
-    # XXX Remove this when models are finished
+    if page.template:
+        template = page.template.template
+    else:
+        template = 'ghu_main/page.html'
 
-    examples = [
-        Org('IXGEN, Inc.', 'Lithonia, GA, United States', [Categ('community'), Categ('youth')]),
-        Org('Clean Water Kenya', 'Ligonier, PA, United States', [Categ('health')]),
-        Org('Global Paint for Charity', 'Atlanta, GA, United States', [Categ('general')]),
-    ]
-    fluff = [Org('An Organization', 'Atlanta, GA, United States', categs)]*32
-
-    ctx = {
-        'results': fluff + examples + fluff,
-    }
-
-    return render(request, 'ghu_main/orgs.html', ctx)
-
-def forum(request):
-    # XXX Remove this when models are finished
-
-    ctx = {
-        'categs': categs,
-    }
-
-    return render(request, 'ghu_main/forum.html', ctx)
+    return render(request, template, {'page': page})
