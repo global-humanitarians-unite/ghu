@@ -93,13 +93,13 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django_settings_export.settings_export',
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = 'ghu_web.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
@@ -163,3 +163,12 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'ghu_global.User'
+
+# Settings to pass through to templates
+# https://pypi.python.org/pypi/django-settings-export
+
+SETTINGS_EXPORT = [
+    'FEEDBACK_FORM_URL',
+]
+
+FEEDBACK_FORM_URL = 'https://goo.gl/forms/OtvG7Y8OFtUmBPaR2'
