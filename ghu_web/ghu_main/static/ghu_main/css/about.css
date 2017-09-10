@@ -3,8 +3,7 @@
 }
 
 #page-title {
-    background: #aceeff; /* Fallback */
-    background: linear-gradient(#d1f6ff, #aceeff);
+    background-color: #bcf1ff;
     padding: 20px 50px;
     margin: 0;
 }
