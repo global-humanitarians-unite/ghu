@@ -25,3 +25,32 @@
 .jumbotron {
     background-image: url("../img/header-image.png");
 }
+
+#feedback {
+    display: block;
+    width: 100px;
+    height: 50px;
+    color: white;
+    border-radius: 0 0 8px 0;
+    text-align: center;
+    line-height: 50px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    font-weight: bold;
+    background: #2dc5ea; /* Fallback */
+    background: linear-gradient(#2dc5ea, #4aaec6);
+    border: 1px solid #4aaec6;
+}
+
+#feedback:link,
+#feedback:hover,
+#feedback:visited,
+#feedback:active {
+    text-decoration: none;
+}
+
+#feedback:hover {
+    background: #4aaec6; /* Fallback */
+    background: linear-gradient(#4aaec6, #2dc5ea);
+}
