@@ -1,0 +1,6 @@
+/* Remove empty <label>s. With this, writing xxx = CharField(label='',
+   widget=forms.Textarea()) in a ModelForm will force the <textarea>
+   to fill the whole width of the admin screen. */
+label:empty {
+    display: none;
+}
