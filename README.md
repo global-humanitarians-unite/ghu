@@ -19,6 +19,7 @@ With the environment set up, now you can configure the application:
     $ cd ghu_web
     $ python generate_key.py
     $ python manage.py migrate
+    $ python manage.py loaddata pages.json
 
 Running a Debug Server
 ----------------------
