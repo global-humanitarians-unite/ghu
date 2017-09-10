@@ -1,42 +1,30 @@
-h1 {
-    font: Helvetica;
-    font-size: 60px;
+#content {
+    background-color: #ecfbff;
 }
 
-h2 {
-    font-size: 40px;
+#page-title {
+    background: #aceeff; /* Fallback */
+    background: linear-gradient(#d1f6ff, #aceeff);
+    padding: 20px 50px;
+    margin: 0;
 }
 
 p {
-    font-size: 30px;
+    font-size: 20px;
+    padding: 50px;
+    /* Fallback in case browser lacks support for nth-child (below) */
+    background-color: #ecfbff;
 }
 
-.main-title {
-    background-color: #66e0ff;
-    padding: 100px;
+p strong:first-child {
+    display: block;
+    font-weight: bold;
 }
 
-.second-title {
+p:nth-child(even) {
+    background-color: #ecfbff;
 }
 
-.main-content {
-}
-
-.box {
-    background-color: #b3f0ff;
-}
-
-#c1 {
-    padding: 100px;
-    background-color: #80e5ff;
-}
-
-#c2 {
-    padding: 100px;
-    background-color: #99d6ff;
-}
-
-#c3 {
-    padding: 100px;
-    background-color: #80ccff;
+p:nth-child(odd) {
+    background-color: #d4f5fe;
 }
