@@ -8,7 +8,7 @@ from ordered_model.admin import OrderedModelAdmin
 class PageForm(forms.ModelForm):
     # Use CKEditor and hide the label
     contents = RichTextField()
-    page_condition = CheckboxBlanker()
+    make_home_page = CheckboxBlanker()
 
     class Meta:
         model = Page
