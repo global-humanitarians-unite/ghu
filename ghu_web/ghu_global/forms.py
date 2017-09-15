@@ -42,3 +42,10 @@ class RichTextField(forms.CharField):
             kwargs['widget'] = RichTextWidget()
 
         super().__init__(**kwargs)
+
+class CheckboxBlanker(forms.BooleanField):
+    """
+
+    """
+    class Media:
+        js = ('checkboxBlanker.js')
