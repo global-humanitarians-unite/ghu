@@ -67,7 +67,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ghu_global',
     'ghu_main',
-    'ghu_toolkits',
 ]
 
 MIDDLEWARE = [
