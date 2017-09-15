@@ -17,7 +17,6 @@ from django.conf.urls import url, include
 from .admin import admin_site
 
 urlpatterns = [
-    url(r'^toolkits/', include('ghu_toolkits.urls')),
     url(r'^admin/', admin_site.urls),
     url(r'^', include('ghu_main.urls')),
 ]
