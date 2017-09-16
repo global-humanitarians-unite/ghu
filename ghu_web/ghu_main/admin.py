@@ -25,3 +25,7 @@ class PageTemplateAdmin(admin.ModelAdmin):
 @admin.register(NavbarEntry, site=admin_site)
 class NavbarEntryAdmin(OrderedModelAdmin):
     list_display = ('label', 'move_up_down_links')
+
+@admin.register(Toolkit, site=admin_site)
+class ToolkitAdmin(admin.ModelAdmin):
+    pass
