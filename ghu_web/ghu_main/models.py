@@ -22,3 +22,10 @@ class NavbarEntry(OrderedModel):
     page = models.ForeignKey('Page', on_delete=models.CASCADE, null=True)
     def __str__(self):
         return '{}, {}, {}'.format(self.label, self.order, self.page)
+
+class Toolkit(models.Model):
+    name = models.CharField(max_length=256)
+    pages = models.ForeignKey('Page')
+
+    def __str__(self):
+        return 'Toolkit Name: {}'.format(self.name)
