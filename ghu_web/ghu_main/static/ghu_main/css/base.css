@@ -3,6 +3,10 @@
     margin-bottom: 40px;
 }
 
+#logo a {
+    text-decoration: none;
+}
+
 #jumbotron-title {
     position: relative;
     margin-top: 180px;
@@ -53,4 +57,33 @@
 #feedback:hover {
     background: #4aaec6; /* Fallback */
     background: linear-gradient(#4aaec6, #2dc5ea);
+}
+
+/* Mobile Size */
+@media (max-width: 770px ) {
+    #logo {
+        margin-top: 18px;
+        margin-bottom: 18px;
+    }
+
+    #logo a {
+        font-size: 5.2vw;
+    }
+
+    #jumbotron-title {
+        margin-top: 210px;
+    }
+
+    #jumbotron-title p {
+        margin-left: 10px;
+        padding-left: 30px;
+        font-size: 3.7vw;
+    }
+
+    #feedback {
+      width: 70px;
+      height: 35px;
+      line-height: 29px;
+      font-size: 3.3vw;
+    }
 }
