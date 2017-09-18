@@ -47,5 +47,10 @@ class CheckboxBlanker(forms.BooleanField):
     """
 
     """
+    def __init__(self, **kwargs):
+        attrs = {'data-blanker-target' : 'id_slug'}
+
+        super().__init__(**kwargs)
+
     class Media:
-        js = ('checkboxBlanker.js')
+        js = ('js/checkboxBlanker.js')
