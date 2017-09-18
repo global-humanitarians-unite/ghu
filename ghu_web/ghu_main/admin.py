@@ -8,6 +8,7 @@ from ordered_model.admin import OrderedModelAdmin
 class PageForm(forms.ModelForm):
     # Use CKEditor and hide the label
     contents = RichTextField()
+    # for the purpose of making the slug field blank out when you're working with the homepage
     make_home_page = CheckboxBlanker()
 
     class Meta:
