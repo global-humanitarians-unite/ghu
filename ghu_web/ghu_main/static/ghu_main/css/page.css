@@ -3,3 +3,10 @@
     margin: 0;
     text-align: center;
 }
+@media (max-width: 770px ) {
+    #page-title {
+      margin:auto;
+      padding: 20px 30px;
+      font-size:20px;
+    }
+}
