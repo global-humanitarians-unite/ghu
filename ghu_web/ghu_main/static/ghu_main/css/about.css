@@ -21,3 +21,9 @@ p:nth-child(even) {
 p:nth-child(odd) {
     background-color: #d4f5fe;
 }
+
+@media (max-width: 770px ) {
+    p {
+      font-size:13px;
+    }
+}
