@@ -69,22 +69,8 @@
     #logo a {
         font-size: 20px;
     }
-
+    
     #jumbotron-title {
-        /*margin-top: 210px;*/
         display: none;
     }
-
-    /*#jumbotron-title p {
-        margin-left: 10px;
-        padding-left: 30px;
-        font-size: 3.7vw;
-    }*/
-
-    /*#feedback {
-      width: 70px;
-      height: 35px;
-      line-height: 29px;
-      font-size: 3.3vw;
-    }*/
 }
