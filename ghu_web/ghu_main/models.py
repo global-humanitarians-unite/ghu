@@ -1,4 +1,5 @@
 from django.db import models
+from ordered_model.models import OrderedModel
 
 class Page(models.Model):
     slug = models.SlugField(blank=True, unique=True)
@@ -15,3 +16,9 @@ class PageTemplate(models.Model):
 
     def __str__(self):
         return '{} ({})'.format(self.name, self.template)
+
+class NavbarEntry(OrderedModel):
+    label = models.CharField(max_length = 256)    
+    page = models.ForeignKey('Page', on_delete=CASCADE, null=True)
+    def __str__(self):
+        return '{}, {}, {}'.format(self.label, self.order, self.page)
