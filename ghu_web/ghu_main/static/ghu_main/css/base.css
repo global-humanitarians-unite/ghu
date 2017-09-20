@@ -62,14 +62,14 @@
 /* Mobile Size */
 @media (max-width: 770px ) {
     #logo {
-        margin-top: 22px;
+        margin-top: 40px;
         margin-bottom: 5px;
     }
 
     #logo a {
         font-size: 20px;
     }
-    
+
     #jumbotron-title {
         display: none;
     }
