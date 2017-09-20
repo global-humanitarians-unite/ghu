@@ -43,15 +43,20 @@ class RichTextField(forms.CharField):
 
         super().__init__(**kwargs)
 
+class CheckboxBlankerWidget(forms.CheckboxInput):
+    """
+    """
+    class Media:
+        js = ('ghu_global/js/checkboxBlanker.js',)
+
 class CheckboxBlanker(forms.BooleanField):
     """
 
     """
     def __init__(self, **kwargs):
+        if 'widget' not in kwargs:
+            kwargs['widget'] = CheckboxBlankerWidget()
         attrs = {'data-blanker-target' : 'id_slug'}
         kwargs['required'] = False;
 
         super().__init__(**kwargs)
-
-    class Media:
-        js = ('js/checkboxBlanker.js')
