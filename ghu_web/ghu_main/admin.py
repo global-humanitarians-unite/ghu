@@ -3,6 +3,7 @@ from django.contrib import admin
 from ghu_web.admin import admin_site
 from ghu_global.forms import RichTextField, CheckboxBlanker
 from .models import Page, PageTemplate, NavbarEntry
+from .models import Page, PageTemplate, Toolkit, ToolkitPage
 from ordered_model.admin import OrderedModelAdmin
 
 class PageForm(forms.ModelForm):
@@ -31,4 +32,8 @@ class NavbarEntryAdmin(OrderedModelAdmin):
 
 @admin.register(Toolkit, site=admin_site)
 class ToolkitAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(ToolkitPage, site=admin_site)
+class ToolkitPageAdmin(admin.ModelAdmin):
     pass
