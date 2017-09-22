@@ -25,5 +25,6 @@ ln -sv "$deploy_root/config.ini" ghu_web/config.ini
 pip install -r requirements.txt
 pip install -r deploy/requirements.txt
 cd "$worktree/ghu_web"
-python manage.py migrate
+# Pass --no-input since this might be running as a non-interactive Jenkins job
+python manage.py migrate --no-input
 python manage.py collectstatic
