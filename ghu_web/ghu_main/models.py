@@ -25,7 +25,6 @@ class NavbarEntry(OrderedModel):
 
 class Toolkit(models.Model):
     name = models.CharField(max_length=256)
-    pages = models.ManyToManyField(Page)
 
     def __str__(self):
         return 'Toolkit Name: {}'.format(self.name)
