@@ -29,3 +29,10 @@ class Toolkit(models.Model):
 
     def __str__(self):
         return 'Toolkit Name: {}'.format(self.name)
+
+class ToolkitPage(OrderedModel):
+    toolkit = models.ForeignKey(Toolkit)
+    page = models.ForeignKey(Page)
+
+    def __str__(self):
+        return 'Toolkit: {} ----- Page: {} ------ Order: {}'.format(self.toolkit, self.page, self.order)
