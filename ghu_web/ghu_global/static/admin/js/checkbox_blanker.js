@@ -6,6 +6,9 @@
         if (checkbox.prop('checked')) {
             target.prop('disabled', true);
             target.data('old_value', target.val());
+            // Hack to disable Django prepopulation
+            target.data('old_changed', target.data('_changed'));
+            target.data('_changed', true);
             target.val('');
         } else {
             target.prop('disabled', false);
@@ -13,7 +16,13 @@
             // box was blank
             if (target.data('old_value') === '') {
                 source.change();
+                // Always re-enable Django prepopulation if the old value was
+                // blank
+                target.data('_changed', false);
             } else {
+                // Restore the disabled-ness of Django prepopulation from
+                // before they checked the box
+                target.data('_changed', target.data('old_changed'));
                 target.val(target.data('old_value'));
             }
         }
