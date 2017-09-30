@@ -19,6 +19,6 @@ class PageTemplate(models.Model):
 
 class NavbarEntry(OrderedModel):
     label = models.CharField(max_length = 256)    
-    page = models.ForeignKey('Page', on_delete=CASCADE, null=True)
+    page = models.ForeignKey('Page', on_delete=models.CASCADE, null=True)
     def __str__(self):
         return '{}, {}, {}'.format(self.label, self.order, self.page)
