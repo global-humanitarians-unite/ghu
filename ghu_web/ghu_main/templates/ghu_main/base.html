@@ -16,15 +16,13 @@
       </div>
     </div>
     <a id="feedback" href="{{ settings.FEEDBACK_FORM_URL }}" target="_blank">Feedback</a>
-    {% comment %}
     <nav class="navbar">
         <div class="container-fluid">
             <ul class="nav navbar-nav">
-                <li><a href="{% url 'ghu_main:about' %}">About</a></li>
-                <li><a href="{% url 'ghu_main:orgs' %}">Organizations</a></li>
-                <li><a href="{% url 'ghu_main:forum' %}">Forum</a></li>
+                {% for entry in navbar %}
+                    <li><a href="{% if entry.page.slug %}{% url 'ghu_main:page' slug=entry.page.slug %}{% else %}{% url 'ghu_main:home' %}{% endif %}">{{entry.label}}</a></li>
+                {% endfor %}
             </ul>
         </div>
     </nav>
-    {% endcomment %}
 {% endblock %}
