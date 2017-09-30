@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import Http404
-from .models import Page
+from .models import Page, NavbarEntry
 
 def page(request, slug=None):
     if slug is None:
@@ -15,5 +15,5 @@ def page(request, slug=None):
         template = page.template.template
     else:
         template = 'ghu_main/page.html'
-
-    return render(request, template, {'page': page})
+    context = {'page': page, 'navbar': NavbarEntry.objects.all()}
+    return render(request, template, context)
