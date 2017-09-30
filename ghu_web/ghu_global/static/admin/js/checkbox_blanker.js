@@ -19,6 +19,14 @@
         }
     }
 
+    // Empty the target and check the box if the target is blank
+    function emptyTargetIfBlank(checkbox, target, source) {
+        if (target.val() === '') {
+            checkbox.prop('checked', true);
+            emptyTarget(checkbox, target, source);
+        }
+    }
+
     $(function () {
         // Set up events for every element with a `data-target-field'
         // attribute, which should be all of the blanker checkboxes in the page
@@ -29,13 +37,18 @@
 
             // If the target field (the one to blank) is already empty, then
             // disable the field and check the box.
-            if (target.val() === '') {
-                checkbox.prop('checked', true);
-                emptyTarget(checkbox, target, source);
-            }
+            emptyTargetIfBlank(checkbox, target, source);
 
+            // When the checkbox changes checkedness, disable or re-enable the
+            // target field
             checkbox.on('input', function () {
                 emptyTarget(checkbox, target, source);
+            });
+
+            // If the user erases the target field by hand and then clicks
+            // away, disable the field and check the box
+            target.on('focusout', function () {
+                emptyTargetIfBlank(checkbox, target, source);
             });
         });
     });
