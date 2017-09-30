@@ -38,24 +38,13 @@ header {
     font-size: 32px;
 }
 
-nav ul {
-    display: block;
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
-nav li {
-    display: inline;
-}
-
 nav a {
-    color: #668cff;
+    /*color: #668cff;
     background-color: #e6ecff;
     display: inline-block;
     text-align: center;
     font-size: 20px;
-    border-bottom: 4px solid #668cff;
+    border-bottom: 4px solid #668cff;*/
 }
 
 nav a:hover {
@@ -70,20 +59,10 @@ nav a:hover {
 }
 
 .navbar {
+    outline-width: 0;
+    background: #b3c6ff;
     margin-bottom: 0;
     border-radius: 0;
-}
-
-.navbar-nav {
-    display: table;
-    width: 100%;
-    margin: 0;
-}
-
-.navbar-nav > li {
-    float: none;
-    display: table-cell;
-    text-align: center;
 }
 
 @media (max-width: 500px) {
