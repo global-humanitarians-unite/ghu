@@ -2,8 +2,7 @@ from django import forms
 from django.contrib import admin
 from ghu_web.admin import admin_site
 from ghu_global.forms import RichTextField, CheckboxBlanker
-from .models import Page, PageTemplate, NavbarEntry
-from .models import Page, PageTemplate, Toolkit, ToolkitPage
+from .models import Page, PageTemplate, Toolkit, ToolkitPage, NavbarEntry
 from ordered_model.admin import OrderedModelAdmin
 
 class PageForm(forms.ModelForm):
