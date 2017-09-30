@@ -18,7 +18,7 @@
     <a id="feedback" href="{{ settings.FEEDBACK_FORM_URL }}" target="_blank">Feedback</a>
     <nav class="navbar navbar-default">
         <div class="container-fluid">
-            <ul class="nav navbar-nav">
+            <ul class="entries nav navbar-nav">
                 {% for entry in navbar %}
                     <li><a href="{% if entry.page.slug %}{% url 'ghu_main:page' slug=entry.page.slug %}{% else %}{% url 'ghu_main:home' %}{% endif %}">{{entry.label}}</a></li>
                 {% endfor %}
