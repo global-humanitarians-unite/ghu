@@ -9,7 +9,7 @@ class PageForm(forms.ModelForm):
     # Use CKEditor and hide the label
     contents = RichTextField()
     # for the purpose of making the slug field blank out when you're working with the homepage
-    make_home_page = CheckboxBlanker()
+    make_home_page = CheckboxBlanker(target_field='slug', source_field='title')
 
     class Meta:
         model = Page
@@ -19,6 +19,7 @@ class PageForm(forms.ModelForm):
 class PageAdmin(admin.ModelAdmin):
     form = PageForm
     prepopulated_fields = {'slug': ('title',)}
+    fields = ('title', 'slug', 'make_home_page', 'contents', 'template')
 
 @admin.register(PageTemplate, site=admin_site)
 class PageTemplateAdmin(admin.ModelAdmin):
