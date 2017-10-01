@@ -29,7 +29,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     {% for entry in navbar %}
-                        <li><a href="{% if entry.page.slug %}{% url 'ghu_main:page' slug=entry.page.slug %}{% else %}{% url 'ghu_main:home' %}{% endif %}">{{entry.label}}</a></li>
+                        <li><a href="{% if entry.page %}{% if entry.page.slug %}{% url 'ghu_main:page' slug=entry.page.slug %}{% else %}{% url 'ghu_main:home' %}{% endif %}{% else %}{% url entry.url %}{% endif %}">{{ entry.label }}</a></li>
                     {% endfor %}
                 </ul>
             </div>

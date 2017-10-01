@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 from ordered_model.models import OrderedModel
 
 class Page(models.Model):
@@ -18,8 +19,13 @@ class PageTemplate(models.Model):
         return '{} ({})'.format(self.name, self.template)
 
 class NavbarEntry(OrderedModel):
-    label = models.CharField(max_length = 256)    
-    page = models.ForeignKey('Page', on_delete=models.CASCADE, null=True)
+    URL_CHOICES = (('ghu_main:toolkits', 'Toolkits listing'),)
+
+    label = models.CharField(max_length=256)
+    page = models.ForeignKey('Page', on_delete=models.CASCADE, null=True,
+                             blank=True)
+    url = models.CharField(max_length=256, verbose_name='Special page',
+                           choices=URL_CHOICES, blank=True)
 
     class Meta:
         verbose_name = 'Navigation bar entry'
@@ -27,6 +33,11 @@ class NavbarEntry(OrderedModel):
 
     def __str__(self):
         return '{}, {}, {}'.format(self.label, self.order, self.page)
+
+    def clean(self):
+        if (not self.page and not self.url) or (self.page and self.url):
+            raise ValidationError('Must specify either a Page or Special '
+                                  'page, but not both')
 
 class Toolkit(models.Model):
     name = models.CharField(max_length=256)
