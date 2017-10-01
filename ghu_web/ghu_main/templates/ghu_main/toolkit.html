@@ -1,0 +1,14 @@
+{% extends 'ghu_main/base.html' %}
+{% load static %}
+{% block title %}{{ toolkit.title }}{% endblock %}
+{% block content %}
+    <h1>{{ toolkit.title }}</h1>
+    <div class="container">
+        <div id="summary">{{ toolkit.summary }}</div>
+        <ol>
+            {% for page in toolkit.pages %}
+                <li>{{ page.title }}</li>
+            {% endfor %}
+        </ol>
+    </div>
+{% endblock %}

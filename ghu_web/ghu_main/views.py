@@ -22,3 +22,12 @@ def toolkits(request):
     context = {'toolkits': Toolkit.objects.all(),
                'navbar': NavbarEntry.objects.all()}
     return render(request, 'ghu_main/toolkits.html', context)
+
+def toolkit(request, slug):
+    try:
+        toolkit = Toolkit.objects.get(slug=slug)
+    except Toolkit.DoesNotExist:
+        raise Http404()
+
+    context = {'toolkit': toolkit, 'navbar': NavbarEntry.objects.all()}
+    return render(request, 'ghu_main/toolkit.html', context)
