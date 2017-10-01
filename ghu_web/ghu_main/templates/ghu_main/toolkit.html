@@ -2,13 +2,13 @@
 {% load static %}
 {% block title %}{{ toolkit.title }}{% endblock %}
 {% block content %}
-    <h1>{{ toolkit.title }}</h1>
     <div class="container">
-        <div id="summary">{{ toolkit.summary }}</div>
-        <ol>
-            {% for toolkitpage in toolkit.pages.all %}
-                <li><a href="{% url 'ghu_main:toolkitpage' toolkit_slug=toolkit.slug toolkitpage_slug=toolkitpage.slug %}">{{ toolkitpage.title }}</a></li>
-            {% endfor %}
-        </ol>
+      <h1>{{ toolkit.title }}</h1>
+      <div id="summary">{{ toolkit.summary }}</div>
+      <ol>
+          {% for toolkitpage in toolkit.pages.all %}
+          <li><a href="{% url 'ghu_main:toolkitpage' toolkit_slug=toolkit.slug toolkitpage_slug=toolkitpage.slug %}">{{ toolkitpage.title }}</a></li>
+          {% endfor %}
+      </ol>
     </div>
 {% endblock %}
