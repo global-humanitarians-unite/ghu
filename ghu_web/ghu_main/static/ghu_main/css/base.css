@@ -45,6 +45,8 @@
     background: #2dc5ea; /* Fallback */
     background: linear-gradient(#2dc5ea, #4aaec6);
     border: 1px solid #4aaec6;
+    /* Prevent navbar from overlapping feedback button */
+    z-index: 1;
 }
 
 #feedback:link,
