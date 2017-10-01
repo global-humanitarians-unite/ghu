@@ -50,7 +50,7 @@
 
             // When the checkbox changes checkedness, disable or re-enable the
             // target field
-            checkbox.on('input', function () {
+            checkbox.on('change', function () {
                 emptyTarget(checkbox, target, source);
             });
 
