@@ -27,7 +27,7 @@ class NavbarEntry(OrderedModel):
     url = models.CharField(max_length=256, verbose_name='Special page',
                            choices=URL_CHOICES, blank=True)
 
-    class Meta:
+    class Meta(OrderedModel.Meta):
         verbose_name = 'Navigation bar entry'
         verbose_name_plural = 'Navigation bar entries'
 
