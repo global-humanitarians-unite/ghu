@@ -16,13 +16,23 @@
       </div>
     </div>
     <a id="feedback" href="{{ settings.FEEDBACK_FORM_URL }}" target="_blank">Feedback</a>
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-default collapsed">
         <div class="container-fluid">
-            <ul class="nav navbar-nav">
-                {% for entry in navbar %}
-                    <li><a href="{% if entry.page.slug %}{% url 'ghu_main:page' slug=entry.page.slug %}{% else %}{% url 'ghu_main:home' %}{% endif %}">{{entry.label}}</a></li>
-                {% endfor %}
-            </ul>
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    {% for entry in navbar %}
+                        <li><a href="{% if entry.page.slug %}{% url 'ghu_main:page' slug=entry.page.slug %}{% else %}{% url 'ghu_main:home' %}{% endif %}">{{entry.label}}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
     </nav>
 {% endblock %}
