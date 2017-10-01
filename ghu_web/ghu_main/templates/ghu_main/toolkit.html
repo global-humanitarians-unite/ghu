@@ -6,8 +6,8 @@
     <div class="container">
         <div id="summary">{{ toolkit.summary }}</div>
         <ol>
-            {% for page in toolkit.pages.all %}
-                <li>{{ page.title }}</li>
+            {% for toolkitpage in toolkit.pages.all %}
+                <li><a href="{% url 'ghu_main:toolkitpage' toolkit_slug=toolkit.slug toolkitpage_slug=toolkitpage.slug %}">{{ toolkitpage.title }}</a></li>
             {% endfor %}
         </ol>
     </div>
