@@ -31,8 +31,16 @@ class NavbarEntryAdmin(OrderedModelAdmin):
 
 @admin.register(Toolkit, site=admin_site)
 class ToolkitAdmin(admin.ModelAdmin):
-    pass
+    prepopulated_fields = {'slug': ('title',)}
+    fields = ('title', 'slug', 'summary')
+
+class ToolkitPageForm(forms.ModelForm):
+    # Use CKEditor and hide the label
+    contents = RichTextField()
 
 @admin.register(ToolkitPage, site=admin_site)
-class ToolkitPageAdmin(admin.ModelAdmin):
-    pass
+class ToolkitPageAdmin(OrderedModelAdmin):
+    fields = ('toolkit', 'title', 'slug', 'contents')
+    form = ToolkitPageForm
+    list_display = ('title', 'move_up_down_links')
+    prepopulated_fields = {'slug': ('title',)}

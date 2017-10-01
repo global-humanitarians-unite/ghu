@@ -40,14 +40,21 @@ class NavbarEntry(OrderedModel):
                                   'page, but not both')
 
 class Toolkit(models.Model):
-    name = models.CharField(max_length=256)
+    slug = models.SlugField(unique=True)
+    title = models.CharField(max_length=256)
+    summary = models.TextField()
 
     def __str__(self):
-        return 'Toolkit Name: {}'.format(self.name)
+        return 'Toolkit: {}'.format(self.title)
 
 class ToolkitPage(OrderedModel):
-    toolkit = models.ForeignKey(Toolkit)
-    page = models.ForeignKey(Page)
+    toolkit = models.ForeignKey(Toolkit, related_name='pages')
+    slug = models.SlugField()
+    title = models.CharField(max_length=256)
+    contents = models.TextField()
+
+    class Meta(OrderedModel.Meta):
+        unique_together = (('toolkit', 'slug'),)
 
     def __str__(self):
-        return 'Toolkit: {} ----- Page: {} ------ Order: {}'.format(self.toolkit, self.page, self.order)
+        return 'Toolkit: {} ------ Order: {}'.format(self.toolkit, self.order)
