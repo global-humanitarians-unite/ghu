@@ -3,7 +3,7 @@ from django.contrib import admin
 from ghu_web.admin import admin_site
 from ghu_global.forms import RichTextField, CheckboxBlanker
 from .models import Page, PageTemplate, Toolkit, ToolkitPage, NavbarEntry
-from ordered_model.admin import OrderedModelAdmin
+from ordered_model.admin import OrderedModelAdmin, OrderedTabularInline
 
 class PageForm(forms.ModelForm):
     # Use CKEditor and hide the label
@@ -29,18 +29,29 @@ class PageTemplateAdmin(admin.ModelAdmin):
 class NavbarEntryAdmin(OrderedModelAdmin):
     list_display = ('label', 'move_up_down_links')
 
-@admin.register(Toolkit, site=admin_site)
-class ToolkitAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'slug': ('title',)}
-    fields = ('title', 'slug', 'summary')
-
 class ToolkitPageForm(forms.ModelForm):
     # Use CKEditor and hide the label
     contents = RichTextField()
 
-@admin.register(ToolkitPage, site=admin_site)
-class ToolkitPageAdmin(OrderedModelAdmin):
-    fields = ('toolkit', 'title', 'slug', 'contents')
+class ToolkitPageInline(OrderedTabularInline):
+    model = ToolkitPage
+    fields = ('move_up_down_links', 'title', 'slug', 'contents')
+    readonly_fields = ('move_up_down_links',)
     form = ToolkitPageForm
-    list_display = ('title', 'move_up_down_links')
     prepopulated_fields = {'slug': ('title',)}
+    extra = 1
+
+@admin.register(Toolkit, site=admin_site)
+class ToolkitAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('title',)}
+    fields = ('title', 'slug', 'summary')
+    inlines = (ToolkitPageInline,)
+
+    # Copy-pasted from django-ordered-model README:
+    # https://github.com/bfirsh/django-ordered-model/blob/master/README.md#admin-integration
+    def get_urls(self):
+        urls = super().get_urls()
+        for inline in self.inlines:
+            if hasattr(inline, 'get_urls'):
+                urls = inline.get_urls(self) + urls
+        return urls

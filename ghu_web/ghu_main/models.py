@@ -52,9 +52,10 @@ class ToolkitPage(OrderedModel):
     slug = models.SlugField()
     title = models.CharField(max_length=256)
     contents = models.TextField()
+    order_with_respect_to = 'toolkit'
 
     class Meta(OrderedModel.Meta):
         unique_together = (('toolkit', 'slug'),)
 
     def __str__(self):
-        return 'Toolkit: {} ------ Order: {}'.format(self.toolkit, self.order)
+        return '{}. Order: {}'.format(self.toolkit, self.order)
