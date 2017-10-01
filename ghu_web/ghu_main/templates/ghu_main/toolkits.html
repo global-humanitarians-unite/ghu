@@ -3,11 +3,15 @@
 {% block title %}Toolkits{% endblock %}
 {% block styles %}
     {{ block.super }}
-    <!--<link href="{% static "/ghu_main/css/page.css" %}" rel="stylesheet">-->
+    <link href="{% static "/ghu_main/css/toolkits.css" %}" rel="stylesheet">
 {% endblock %}
 {% block content %}
     <h1>Toolkits</h1>
     <div class="container">
-        here are some GOOD toolkits
+        {% for toolkit in toolkits %}
+            <div class="list-entry">
+                <h3>{{ toolkit.name }}</h3>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}
