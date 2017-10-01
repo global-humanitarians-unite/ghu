@@ -20,6 +20,11 @@ class PageTemplate(models.Model):
 class NavbarEntry(OrderedModel):
     label = models.CharField(max_length = 256)    
     page = models.ForeignKey('Page', on_delete=models.CASCADE, null=True)
+
+    class Meta:
+        verbose_name = 'Navigation bar entry'
+        verbose_name_plural = 'Navigation bar entries'
+
     def __str__(self):
         return '{}, {}, {}'.format(self.label, self.order, self.page)
 
