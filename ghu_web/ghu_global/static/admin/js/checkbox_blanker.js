@@ -30,7 +30,9 @@
 
     // Empty the target and check the box if the target is blank
     function emptyTargetIfBlank(checkbox, target, source) {
-        if (target.val() === '') {
+        // Hack: don't check the box if we're adding the page, even though the
+        // target is blank
+        if (target.val() === '' && document.title.indexOf('Add ') !== 0) {
             checkbox.prop('checked', true);
             emptyTarget(checkbox, target, source);
         }
