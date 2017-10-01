@@ -6,7 +6,7 @@
     <div class="container">
         <div id="summary">{{ toolkit.summary }}</div>
         <ol>
-            {% for page in toolkit.pages %}
+            {% for page in toolkit.pages.all %}
                 <li>{{ page.title }}</li>
             {% endfor %}
         </ol>
