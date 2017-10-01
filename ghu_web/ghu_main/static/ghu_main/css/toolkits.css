@@ -2,11 +2,12 @@
     padding: 20px;
 }
 
-a {
+#toolkit-link {
     color: black;
     text-decoration: none;
 }
 
-a:hover {
+#toolkit-link:hover {
     text-decoration: none;
+    color: blue;
 }
