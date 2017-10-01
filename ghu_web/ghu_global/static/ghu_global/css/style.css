@@ -80,6 +80,20 @@ nav a:hover {
     padding: 0 0;
 }
 
+#content > h1 {
+    padding: 40px 50px;
+    margin: 0;
+    text-align: center;
+}
+
+@media (max-width: 770px ) {
+    #content > h1 {
+      margin:auto;
+      padding: 20px 30px;
+      font-size: 20px;
+    }
+}
+
 /* Footer */
 
 #footer {

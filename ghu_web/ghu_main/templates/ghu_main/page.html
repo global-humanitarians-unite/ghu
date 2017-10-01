@@ -1,10 +1,6 @@
 {% extends 'ghu_main/base.html' %}
 {% load static %}
 {% block title %}{{ page.title }}{% endblock %}
-{% block styles %}
-    {{ block.super }}
-    <link href="{% static "/ghu_main/css/page.css" %}" rel="stylesheet">
-{% endblock %}
 {% block content %}
     <h1 id="page-title">{{ page.title }}</h1>
     <div class="container">{{ page.contents | safe }}</div>
