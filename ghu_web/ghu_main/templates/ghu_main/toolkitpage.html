@@ -1,0 +1,9 @@
+{% extends 'ghu_main/base.html' %}
+{% load static %}
+{% block title %}{{ toolkitpage.title }}{% endblock %}
+{% block content %}
+    <h1>{{ toolkitpage.title }}</h1>
+    <div class="container">
+      <div id="contents">{{ toolkitpage.contents | safe }}</div>
+    </div>
+{% endblock %}

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import Http404
-from .models import Page, NavbarEntry, Toolkit
+from .models import Page, NavbarEntry, Toolkit, ToolkitPage
 
 def page(request, slug=None):
     if slug is None:
@@ -31,3 +31,12 @@ def toolkit(request, slug):
 
     context = {'toolkit': toolkit, 'navbar': NavbarEntry.objects.all()}
     return render(request, 'ghu_main/toolkit.html', context)
+
+def toolkitpage(request, toolkit_slug, toolkitpage_slug):
+    try:
+        toolkitpage = ToolkitPage.objects.get(slug=toolkitpage_slug, toolkit__slug=toolkit_slug)
+    except ToolkitPage.DoesNotExist:
+        raise Http404()
+
+    context = {'toolkitpage': toolkitpage, 'navbar': NavbarEntry.objects.all()}
+    return render(request, 'ghu_main/toolkitpage.html', context)
