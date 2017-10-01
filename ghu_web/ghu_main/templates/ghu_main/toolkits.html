@@ -9,9 +9,12 @@
     <h1>Toolkits</h1>
     <div class="container">
         {% for toolkit in toolkits %}
-            <div class="list-entry">
-                <h3>{{ toolkit.name }}</h3>
-            </div>
+            <a href="{% url 'ghu_main:toolkit' slug=toolkit.slug %}">
+                <div class="list-entry">
+                    <h3>{{ toolkit.title }}</h3>
+                    <p>{{ toolkit.summary }}</p>
+                </div>
+            </a>
         {% endfor %}
     </div>
 {% endblock %}
