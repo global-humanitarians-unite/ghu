@@ -2,22 +2,6 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from ordered_model.models import OrderedModel
 
-class Page(models.Model):
-    slug = models.SlugField(blank=True, unique=True)
-    title = models.CharField(max_length=256)
-    contents = models.TextField()
-    template = models.ForeignKey('PageTemplate', null=True, blank=True)
-
-    def __str__(self):
-        return 'Page "{}": /{}/'.format(self.title, self.slug)
-
-class PageTemplate(models.Model):
-    name = models.CharField(max_length=256, verbose_name='User-friendly title')
-    template = models.CharField(max_length=256, verbose_name='Template to execute')
-
-    def __str__(self):
-        return '{} ({})'.format(self.name, self.template)
-
 class NavbarEntry(OrderedModel):
     URL_CHOICES = (('ghu_main:toolkits', 'Toolkits listing'),)
 
@@ -38,6 +22,29 @@ class NavbarEntry(OrderedModel):
         if (not self.page and not self.url) or (self.page and self.url):
             raise ValidationError('Must specify either a Page or Special '
                                   'page, but not both')
+
+class Organization(models.Model):
+    name = models.CharField(max_length=256)
+    about = models.TextField()
+    
+    def __str__(self):
+        return 'Organization "{}"'.format(self.name);
+
+class Page(models.Model):
+    slug = models.SlugField(blank=True, unique=True)
+    title = models.CharField(max_length=256)
+    contents = models.TextField()
+    template = models.ForeignKey('PageTemplate', null=True, blank=True)
+
+    def __str__(self):
+        return 'Page "{}": /{}/'.format(self.title, self.slug)
+
+class PageTemplate(models.Model):
+    name = models.CharField(max_length=256, verbose_name='User-friendly title')
+    template = models.CharField(max_length=256, verbose_name='Template to execute')
+
+    def __str__(self):
+        return '{} ({})'.format(self.name, self.template)
 
 class Toolkit(models.Model):
     slug = models.SlugField(unique=True)
