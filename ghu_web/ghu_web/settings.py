@@ -172,3 +172,15 @@ SETTINGS_EXPORT = [
 ]
 
 FEEDBACK_FORM_URL = 'https://goo.gl/forms/OtvG7Y8OFtUmBPaR2'
+
+EMAIL_BACKEND = 'django_ses.SESBackend'
+
+# These are optional -- if they're set as environment variables they won't
+# need to be set here as well
+AWS_ACCESS_KEY_ID = 'YOUR-ACCESS-KEY-ID'
+AWS_SECRET_ACCESS_KEY = 'YOUR-SECRET-ACCESS-KEY'
+
+# Additionally, if you are not using the default AWS region of us-east-1,
+# you need to specify a region, like so:
+AWS_SES_REGION_NAME = 'us-west-2'
+AWS_SES_REGION_ENDPOINT = 'email.us-west-2.amazonaws.com'
