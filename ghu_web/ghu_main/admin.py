@@ -2,7 +2,7 @@ from django import forms
 from django.contrib import admin
 from ghu_web.admin import admin_site
 from ghu_global.forms import RichTextField, CheckboxBlanker
-from .models import Page, PageTemplate, Toolkit, ToolkitPage, NavbarEntry
+from .models import Page, PageTemplate, Toolkit, ToolkitPage, NavbarEntry, OrgProfileTemplate, OrgProfile
 from ordered_model.admin import OrderedModelAdmin, OrderedTabularInline
 
 class PageForm(forms.ModelForm):
@@ -14,6 +14,15 @@ class PageForm(forms.ModelForm):
     class Meta:
         model = Page
         exclude = []
+
+@admin.register(OrgProfileTemplate, site=admin_site)
+class OrgProfileTemplateAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(OrgProfile, site=admin_site)
+class OrgProfileAdmin(admin.ModelAdmin):
+    fields = ('slug', 'name', 'email', 'phone', 'description')
+
 
 @admin.register(Page, site=admin_site)
 class PageAdmin(admin.ModelAdmin):

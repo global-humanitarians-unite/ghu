@@ -59,3 +59,20 @@ class ToolkitPage(OrderedModel):
 
     def __str__(self):
         return '{}. Order: {}'.format(self.toolkit, self.order)
+
+class OrgProfileTemplate(models.Model):
+    name = models.CharField(max_length=256, verbose_name='User-friendly title')
+    template = models.CharField(max_length=256, verbose_name='Template to execute')
+
+    def __str__(self):
+        return '{} ({})'.format(self.name, self.template)
+
+class OrgProfile(models.Model):
+    slug = models.SlugField(blank=True, unique=True)
+    name = models.CharField(max_length=256)
+    email = models.CharField(max_length=256)
+    phone = models.CharField(max_length=256)
+    description = models.TextField()
+
+    def __str__(self):
+        return 'OrgProfile: {}, slug: {}'.format(self.name, self.slug)
