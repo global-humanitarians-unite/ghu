@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import Http404
-from .models import Page, NavbarEntry, Toolkit, ToolkitPage
+from .models import Page, NavbarEntry, Toolkit, ToolkitPage, OrgProfile
 
 def page(request, slug=None):
     if slug is None:
@@ -40,3 +40,14 @@ def toolkitpage(request, toolkit_slug, toolkitpage_slug):
 
     context = {'toolkitpage': toolkitpage, 'navbar': NavbarEntry.objects.all()}
     return render(request, 'ghu_main/toolkitpage.html', context)
+
+def org_profile(request, slug):
+    try:
+        profile = OrgProfile.objects.get(slug=slug)
+    except Toolkit.DoesNotExist:
+        raise Http404()
+
+    context = {'profiles': OrgProfile.objects.all(),
+            #    'navbar': NavbarEntry.objects.all()
+               }
+    return render(request, 'ghu_main/org_profile.html', context)
