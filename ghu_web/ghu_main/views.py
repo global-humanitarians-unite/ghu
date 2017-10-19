@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.http import Http404
 from .models import Page, NavbarEntry, Toolkit, ToolkitPage, OrgProfile
-
 def page(request, slug=None):
     if slug is None:
         slug = ''
@@ -18,6 +17,9 @@ def page(request, slug=None):
     context = {'page': page, 'navbar': NavbarEntry.objects.all()}
     return render(request, template, context)
 
+def organizations(request):
+    context = {'organizations': Organization.objects.all()}
+    return render(request, 'ghu_main/organizations.html', context)
 def toolkits(request):
     context = {'toolkits': Toolkit.objects.all(),
                'navbar': NavbarEntry.objects.all()}

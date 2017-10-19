@@ -1,0 +1,13 @@
+.list-entry {
+    padding: 20px;
+}
+
+#organization-link {
+    color: black;
+    text-decoration: none;
+}
+
+#organization-link:hover {
+    text-decoration: none;
+    color: blue;
+}
