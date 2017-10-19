@@ -24,6 +24,7 @@ class NavbarEntry(OrderedModel):
                                   'page, but not both')
 
 class Organization(models.Model):
+    slug = models.SlugField(blank=True, unique=True)
     name = models.CharField(max_length=256)
     about = models.TextField()
     

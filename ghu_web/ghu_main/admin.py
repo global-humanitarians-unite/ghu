@@ -15,7 +15,6 @@ class PageForm(forms.ModelForm):
         model = Page
         exclude = []
 
-
 @admin.register(OrgProfile, site=admin_site)
 class OrgProfileAdmin(admin.ModelAdmin):
     fields = ('slug', 'name', 'email', 'location', 'phone', 'summary', 'description')
