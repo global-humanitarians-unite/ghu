@@ -11,7 +11,7 @@
     <div class="container">
         {% for organization in organizations %}
             <p class="list-entry">
-                <a id="organization-link" href="{% url 'ghu_main:organization' slug=organization.slug %}">
+                <a id="organization-link" href="{% url 'ghu_main:profile' slug=organization.slug %}">
                     <strong>{{ organization.name}}</strong><br />
                     {{ organization.summary }}
                 </a>

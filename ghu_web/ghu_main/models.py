@@ -23,14 +23,6 @@ class NavbarEntry(OrderedModel):
             raise ValidationError('Must specify either a Page or Special '
                                   'page, but not both')
 
-class Organization(models.Model):
-    slug = models.SlugField(blank=True, unique=True)
-    name = models.CharField(max_length=256)
-    about = models.TextField()
-    
-    def __str__(self):
-        return 'Organization "{}"'.format(self.name);
-
 class Page(models.Model):
     slug = models.SlugField(blank=True, unique=True)
     title = models.CharField(max_length=256)
