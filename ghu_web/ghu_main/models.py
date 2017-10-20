@@ -63,8 +63,10 @@ class ToolkitPage(OrderedModel):
 class OrgProfile(models.Model):
     slug = models.SlugField(blank=True, unique=True)
     name = models.CharField(max_length=256)
-    email = models.CharField(max_length=256)
+    email = models.EmailField(max_length=254)
+    location = models.CharField(max_length=256, null=True)
     phone = models.CharField(max_length=256)
+    summary = models.CharField(max_length=256, null=True)
     description = models.TextField()
 
     def __str__(self):

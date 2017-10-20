@@ -47,7 +47,7 @@ def org_profile(request, slug):
     except Toolkit.DoesNotExist:
         raise Http404()
 
-    context = {'profiles': OrgProfile.objects.all(),
-            #    'navbar': NavbarEntry.objects.all()
+    context = {'profiles': profile,
+               'navbar': NavbarEntry.objects.all()
                }
     return render(request, 'ghu_main/org_profile.html', context)

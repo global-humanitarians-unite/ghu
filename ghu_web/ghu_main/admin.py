@@ -18,7 +18,7 @@ class PageForm(forms.ModelForm):
 
 @admin.register(OrgProfile, site=admin_site)
 class OrgProfileAdmin(admin.ModelAdmin):
-    fields = ('slug', 'name', 'email', 'phone', 'description')
+    fields = ('slug', 'name', 'email', 'location', 'phone', 'summary', 'description')
 
 
 @admin.register(Page, site=admin_site)
