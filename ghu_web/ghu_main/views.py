@@ -18,8 +18,10 @@ def page(request, slug=None):
     return render(request, template, context)
 
 def organizations(request):
-    context = {'organizations': Organization.objects.all()}
+    context = {'organizations': Organization.objects.all(),
+                'navbar': NavbarEntry.objects.all()}
     return render(request, 'ghu_main/organizations.html', context)
+
 def toolkits(request):
     context = {'toolkits': Toolkit.objects.all(),
                'navbar': NavbarEntry.objects.all()}
