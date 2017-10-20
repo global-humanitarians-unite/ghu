@@ -18,7 +18,7 @@ def page(request, slug=None):
     return render(request, template, context)
 
 def organizations(request):
-    context = {'organizations': Organization.objects.all(),
+    context = {'organizations': OrgProfile.objects.all(),
                 'navbar': NavbarEntry.objects.all()}
     return render(request, 'ghu_main/organizations.html', context)
 
