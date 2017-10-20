@@ -3,14 +3,24 @@
 {% block title %}Profiles{% endblock %}
 {% block styles %}
     {{ block.super }}
-    <!-- <link href="{% static "/ghu_main/css/toolkits.css" %}" rel="stylesheet">
-    <link href="{% static "/ghu_main/css/generic-list.css" %}" rel="stylesheet"> -->
+    <!-- <link href="{% static "/ghu_main/css/toolkits.css" %}" rel="stylesheet"> -->
+    <link href="{% static "/ghu_main/css/generic-list.css" %}" rel="stylesheet">
+    <style>
+      strong {
+          display:inline !important;
+      }
+    </style>
 {% endblock %}
 {% block content %}
     <h1>Profiles</h1>
     <div class="container">
         <p>
-          hi
+          <strong>Name: </strong>{{ profiles.name }}<br />
+          <strong>E-mail: </strong>{{ profiles.email }}<br />
+          <strong>Location: </strong>{{ profiles.location }}<br />
+          <strong>Profiles: </strong>{{ profiles.phone }}<br />
+          <strong>Summary: </strong>{{ profiles.summary }}<br />
+          <strong>Description: </strong>{{ profiles.description }}<br />
         </p>
     </div>
 {% endblock %}
