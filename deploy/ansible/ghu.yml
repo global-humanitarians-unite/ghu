@@ -1,0 +1,93 @@
+# Sets up Amazon EC2 Debian Stretch instance with our application
+---
+- hosts: all
+  remote_user: admin
+  handlers:
+  - name: reload nginx
+    become: true
+    systemd:
+      name: nginx
+      state: reloaded
+  tasks:
+  - name: ensure apt-keys for extra repos are present
+    apt_key:
+      url: "{{ item }}"
+      state: present
+    become: true
+    with_items:
+    - https://pkg.jenkins.io/debian/jenkins.io.key
+    - https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+  - name: ensure extra repositories are present
+    apt_repository:
+      repo: "{{ item }}"
+      state: present
+    become: true
+    with_items:
+    - deb https://deb.nodesource.com/node_6.x stretch main
+    - deb-src https://deb.nodesource.com/node_6.x stretch main
+    - deb https://pkg.jenkins.io/debian binary/
+  - name: ensure dependencies are up-to-date
+    apt:
+      name: "{{ item }}"
+      state: latest
+    become: true
+    with_items:
+    - nginx
+    - python3
+    - python3-virtualenv
+    - openjdk-8-jre-headless
+    - certbot
+    # For npm
+    - nodejs
+  # If this isn't its own task, ansible will run (effectively) apt-get install
+  # openjdk-8-jre-headless jenkins, which might install jenkins before java,
+  # which will cause the installation to fail.
+  - name: ensure jenkins is up-to-date
+    apt:
+      name: jenkins
+      state: latest
+    become: true
+  - name: ensure bower is installed
+    become: true
+    npm:
+      global: yes
+      name: bower
+      state: latest
+  - name: ghu users exist
+    become: true
+    user:
+      name: "ghu-{{ item }}"
+      state: present
+    with_items:
+    - develop
+    - master
+  - name: nginx default site does not exist
+    become: true
+    notify:
+    - reload nginx
+    file:
+      path: /etc/nginx/sites-enabled/default
+      state: absent
+  - name: nginx sites available
+    become: true
+    notify:
+    - reload nginx
+    template:
+      src: "templates/sites-available/{{ item }}"
+      dest: "/etc/nginx/sites-available/{{ item }}"
+    with_items:
+    - ghu
+    - http
+    - jenkins
+  - name: nginx sites enabled
+    become: true
+    notify:
+    - reload nginx
+    file:
+      path: "/etc/nginx/sites-enabled/{{ item }}"
+      state: link
+      src: "../sites-available/{{ item }}"
+    with_items:
+    - ghu
+    - http
+    - jenkins

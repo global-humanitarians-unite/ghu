@@ -1,0 +1,49 @@
+# Redirect mail.ghu.org to WorkMail
+server {
+	server_name mail.globalhumanitariansunite.org;
+	listen 80;
+	listen [::]:80;
+	listen 443 ssl;
+	listen [::]:443 ssl;
+
+	location / {
+		return 302 https://ghu.awsapps.com/mail;
+	}
+
+	# certbot webroot validation
+	location /.well-known/ {
+		alias /var/www/certbot-overlay/.well-known/;
+	}
+}
+
+# master
+server {
+	listen 443 ssl default_server;
+	listen [::]:443 ssl default_server;
+
+	# certbot webroot validation
+	location /.well-known/ {
+		alias /var/www/certbot-overlay/.well-known/;
+	}
+
+	if ($host != globalhumanitariansunite.org) {
+		return 302 https://globalhumanitariansunite.org$request_uri;
+	}
+
+	include /var/www/ghu/master/nginx.conf;
+}
+
+# develop
+server {
+	listen 443 ssl;
+	listen [::]:443 ssl;
+
+	server_name develop.globalhumanitariansunite.org;
+
+	# certbot webroot validation
+	location /.well-known/ {
+		alias /var/www/certbot-overlay/.well-known/;
+	}
+
+	include /var/www/ghu/develop/nginx.conf;
+}
