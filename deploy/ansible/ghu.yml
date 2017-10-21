@@ -2,6 +2,8 @@
 ---
 - hosts: all
   remote_user: admin
+  vars:
+    debian_codename: stretch
   handlers:
   - name: reload nginx
     become: true
@@ -23,8 +25,8 @@
       state: present
     become: true
     with_items:
-    - deb https://deb.nodesource.com/node_6.x stretch main
-    - deb-src https://deb.nodesource.com/node_6.x stretch main
+    - deb https://deb.nodesource.com/node_6.x {{ debian_codename }} main
+    - deb-src https://deb.nodesource.com/node_6.x {{ debian_codename }} main
     - deb https://pkg.jenkins.io/debian binary/
   - name: ensure dependencies are up-to-date
     apt:
