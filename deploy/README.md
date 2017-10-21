@@ -94,20 +94,71 @@ A rundown of `ls -1`: What each file does
           and `/deploy/requirements.txt`
        5. Performs database migrations (`manage.py migrate`)
        6. Collects static files (`manage.py collectstatic`)
-     * `init_deploy.sh`: Helper script for bootstrapping a deployment
-        environment. Will copy over necessary files to `$deploy_root/`. **Run
-        this script as your `jenkins` user**.
+     * `init_deploy.sh`: **DEPRECATED** helper script for bootstrapping a
+       deployment environment. Will copy over necessary files to
+       `$deploy_root/`. Run this script as your `jenkins` user. **Don't use
+       this — use the ansible script as described below instead**
  * `ghu.service`: [systemd unit][4] for `uwsgi` which runs `run.sh`
  * `nginx.conf`: snippet of [nginx][5] configuration
+ * `nginx-sites`: Configuration for each nginx site. Copied over initially by Ansible
  * `README.md`: You're reading this!
  * `requirements.txt`: Deployment-specific python dependencies.
  * `fresh_checkout.sh` will install dependencies from `/requirements.txt`, then
    this
  * `run.sh`: Shell script that runs `uwsgi` will all the right configuration
    flags
+ * `ghu.yml`: The ansible script for initial setup. See the section below for
+   details.
+
+Ansible Initial Deployment Script
+---------------------------------
+
+The deployment scripts are great and all, but they still left me `ssh`ing in a
+lot to tweak things. However, if I (the tweaker-in-chief) disappear,
+administrators still need to make changes to the site, so I wrote this Ansible
+script to take care of that.
+
+Here's how you'd set up a new server running ghu:
+
+ 1. In the AWS console, create an Amazon EC2 medium instance with [Debian
+    Stretch][6]. I gave it 32GiB of storage.
+ 2. Still in the AWS console, edit the security group to open up TCP ports 80
+    and 443.
+ 3. Save the ssh key for the instance to `~/.ssh/id_rsa_ghu` or whatever.
+    `chmod` it to 600 or something decent, and then add the following to
+    `~/.ssh/config`:
+
+        Host ghu
+            User admin
+            HostName IP_ADDRESS_HERE
+            Port 22
+            IdentityFile ~/.ssh/id_rsa_ghu
+            IdentitiesOnly yes
+
+ 4. Now you should be able to ssh into the machine with `ssh ghu`, so create a
+    modest Ansible inventory file `hosts` with one line: `ghu`:
+
+        $ printf 'ghu\n' >hosts
+
+ 5. Finally, you can run the playbook with:
+
+        $ ansible-playbook --ask-vault-pass -i hosts ghu.yml
+
+    If you don't have the vault password, you can generate a new vault by
+    deleting `secrets.yml` and creating another by running `ansible-vault
+    create secrets.yml`, and then adding the following contents to the vault:
+
+        vault_postgresql_password: POSTGRES_PASSWORD_HERE
+
+ 6. Set up Jenkins (FIXME)
+
+You can re-run `ansible-playbook` with the command line shown above whenever
+you want to update server configuration that lives outside `$deploy_dir`, such
+as overall nginx configuration.
 
 [1]: https://en.wikipedia.org/wiki/Tmux
 [2]: https://uwsgi-docs.readthedocs.io/en/latest/
 [3]: https://en.wikipedia.org/wiki/Touch_(Unix)
 [4]: https://www.freedesktop.org/software/systemd/man/systemd.service.html
 [5]: https://en.wikipedia.org/wiki/Nginx
+[6]: https://wiki.debian.org/Cloud/AmazonEC2Image
