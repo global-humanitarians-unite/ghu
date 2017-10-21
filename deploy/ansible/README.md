@@ -28,8 +28,17 @@ script to take care of that.
 
  5. Finally, you can run the playbook with:
 
-        $ ansible-playbook -i hosts ghu.yml
+        $ ansible-playbook --ask-vault-pass -i hosts ghu.yml
 
-You can repeat the last step whenever you want to update stuff on the server.
+    If you don't have the vault password, you can generate a new vault by
+    deleting `secrets.yml` and creating another by running `ansible-vault
+    create secrets.yml`, and then adding the following contents to the vault:
+
+        vault_postgresql_password: POSTGRES_PASSWORD_HERE
+
+ 6. Set up Jenkins
+
+You can re-run `ansible-playbook` with the command line shown above whenever
+you want to update stuff on the server.
 
 [1]: https://wiki.debian.org/Cloud/AmazonEC2Image

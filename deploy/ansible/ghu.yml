@@ -10,7 +10,12 @@
     systemd:
       name: nginx
       state: reloaded
+  - name: restart jenkins
+    systemd:
+      name: jenkins
+      state: restarted
   tasks:
+  - include_vars: secrets.yml
   - name: ensure apt-keys for extra repos are present
     apt_key:
       url: "{{ item }}"
@@ -39,16 +44,25 @@
     - python3-virtualenv
     - openjdk-8-jre-headless
     - certbot
+    - git
+    - postgresql
     # For npm
     - nodejs
+    # Needing for `become'ing an unprivileged user. See:
+    # https://github.com/ansible/ansible/issues/16048#issuecomment-273367563
+    - acl
+    # For postgresql_* modules used below
+    - python-psycopg2
   # If this isn't its own task, ansible will run (effectively) apt-get install
   # openjdk-8-jre-headless jenkins, which might install jenkins before java,
   # which will cause the installation to fail.
   - name: ensure jenkins is up-to-date
+    become: true
+    notify:
+    - restart jenkins
     apt:
       name: jenkins
       state: latest
-    become: true
   - name: ensure bower is installed
     become: true
     npm:
@@ -60,6 +74,50 @@
     user:
       name: "ghu-{{ item }}"
       state: present
+    with_items:
+    - develop
+    - master
+  - name: postgres users exist
+    become: true
+    become_user: postgres
+    postgresql_user:
+      name: "ghu-{{ item }}"
+      password: "{{ vault_postgresql_password }}"
+      state: present
+    with_items:
+    - develop
+    - master
+  - name: postgres databases exist
+    become: true
+    become_user: postgres
+    postgresql_db:
+      name: "ghu-{{ item }}"
+      owner: "ghu-{{ item }}"
+      state: present
+    with_items:
+    - develop
+    - master
+  # Now, do the work of init_deploy.sh
+  - name: deploy root dir exists
+    become: true
+    file:
+      path: "/var/deploy/ghu/"
+      state: directory
+  - name: deploy dirs exist
+    become: true
+    file:
+      path: "/var/deploy/ghu/{{ item }}"
+      owner: jenkins
+      state: directory
+    with_items:
+    - develop
+    - master
+  - name: socket dirs exist
+    become: true
+    file:
+      path: "/var/deploy/ghu/{{ item }}/sock"
+      owner: "ghu-{{ item }}"
+      state: directory
     with_items:
     - develop
     - master
