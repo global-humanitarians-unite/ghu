@@ -133,7 +133,7 @@
     notify:
     - reload nginx
     template:
-      src: "templates/sites-available/{{ item }}"
+      src: "nginx-sites/{{ item }}"
       dest: "/etc/nginx/sites-available/{{ item }}"
     with_items:
     - ghu
