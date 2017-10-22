@@ -8,16 +8,16 @@ server {
 				alias /var/www/certbot-overlay/.well-known/;
 		}
 
-		# get rid of annoying www.
-		if ($host ~ ^www.) {
-				return 301 https://globalhumanitariansunite.org$request_uri;
-		}
-		# ip address
-		if ($host ~ ^\d+\.\d+\.\d+\.\d+$) {
-				return 302 https://globalhumanitariansunite.org$request_uri;
-		}
-
 		location / {
-				return 301 https://$host$request_uri;
+			# get rid of annoying www.
+			if ($host ~ ^www.) {
+					return 301 https://globalhumanitariansunite.org$request_uri;
+			}
+			# ip address
+			if ($host ~ ^\d+\.\d+\.\d+\.\d+$) {
+					return 302 https://globalhumanitariansunite.org$request_uri;
+			}
+
+			return 301 https://$host$request_uri;
 		}
 }

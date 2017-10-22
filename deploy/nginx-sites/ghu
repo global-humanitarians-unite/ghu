@@ -40,6 +40,11 @@ server {
 
 	server_name develop.globalhumanitariansunite.org;
 
+	# Ask web crawlers to get lost
+	location /robots.txt {
+		return 200 'User-agent: *\nDisallow: /\n';
+	}
+
 	# certbot webroot validation
 	location /.well-known/ {
 		alias /var/www/certbot-overlay/.well-known/;
