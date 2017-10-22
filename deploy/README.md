@@ -94,10 +94,6 @@ A rundown of `ls -1`: What each file does
           and `/deploy/requirements.txt`
        5. Performs database migrations (`manage.py migrate`)
        6. Collects static files (`manage.py collectstatic`)
-     * `init_deploy.sh`: **DEPRECATED** helper script for bootstrapping a
-       deployment environment. Will copy over necessary files to
-       `$deploy_root/`. Run this script as your `jenkins` user. **Don't use
-       this — use the ansible script as described below instead**
  * `ghu.service`: [systemd unit][4] for `uwsgi` which runs `run.sh`
  * `nginx.conf`: snippet of [nginx][5] configuration
  * `nginx-sites`: Configuration for each nginx site. Copied over initially by Ansible
@@ -124,7 +120,9 @@ Here's how you'd set up a new server running ghu:
     Stretch][6]. I gave it 32GiB of storage.
  2. Still in the AWS console, edit the security group to open up TCP ports 80
     and 443.
- 3. Save the ssh key for the instance to `~/.ssh/id_rsa_ghu` or whatever.
+ 3. Also in the AWS console, go into Route 53 and set the hostnames seen in
+    `request_cert.sh` to point to the IP address of the instance you've created.
+ 4. Save the ssh key for the instance to `~/.ssh/id_rsa_ghu` or whatever.
     `chmod` it to 600 or something decent, and then add the following to
     `~/.ssh/config`:
 
@@ -135,12 +133,12 @@ Here's how you'd set up a new server running ghu:
             IdentityFile ~/.ssh/id_rsa_ghu
             IdentitiesOnly yes
 
- 4. Now you should be able to ssh into the machine with `ssh ghu`, so create a
+ 5. Now you should be able to ssh into the machine with `ssh ghu`, so create a
     modest Ansible inventory file `hosts` with one line: `ghu`:
 
         $ printf 'ghu\n' >hosts
 
- 5. Finally, you can run the playbook with:
+ 6. Finally, you can run the playbook with:
 
         $ ansible-playbook --ask-vault-pass -i hosts ghu.yml
 
@@ -150,11 +148,42 @@ Here's how you'd set up a new server running ghu:
 
         vault_postgresql_password: POSTGRES_PASSWORD_HERE
 
- 6. Set up Jenkins (FIXME)
+ 7. Now the website should be running, but you still need to set up Jenkins.
+    See the following section for that.
 
 You can re-run `ansible-playbook` with the command line shown above whenever
 you want to update server configuration that lives outside `$deploy_dir`, such
 as overall nginx configuration.
+
+Jenkins Setup
+-------------
+
+We haven't ansible-ized the Jenkins setup process, so you'll have to go through
+the Wizard, but it's not too bad. The ansible scripts automatically create the
+jobs, and that's the tedious part.
+
+ 1. Get the admin password from the server with something like
+
+        $ ssh ghu sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+
+    and use it to start the wizard at https://jenkins.globalhumanitariansunite.org/.
+ 2. Click the button for using the default set of plugins.
+ 3. Future versions of Jenkins might fix this, but right now, the wizard hangs
+    if you don't enter an email addresson the next screen. So definitely do that.
+ 4. Follow the instructions on https://my.slack.com/services/new/jenkins-ci to
+    install the Slack Notifications plugin and set it up.
+ 5. Now you need to configure GitHub webhooks. Use `ansible-vault view
+    secrets.yml --ask-vault-pass` to see the personal access token for the
+    [ghu-jenkins][7] account (or create a new personal access token in [the
+    GitHub settings][8] for that account). Then under
+    https://jenkins.globalhumanitariansunite.org/configure, add a GitHub server
+    in the "GitHub Servers" section with that personal access token as a new
+    secret key credential.
+ 6. The GitHub plugin will automatically create webhooks for each job as needed
+    if you go to their Configure page and hit the Save button. (Realistically,
+    since both the ghu-develop and ghu-master jobs share the same webhook since
+    they are "hooked" by the same repository, you need to this for only one of
+    them.)
 
 [1]: https://en.wikipedia.org/wiki/Tmux
 [2]: https://uwsgi-docs.readthedocs.io/en/latest/
@@ -162,3 +191,5 @@ as overall nginx configuration.
 [4]: https://www.freedesktop.org/software/systemd/man/systemd.service.html
 [5]: https://en.wikipedia.org/wiki/Nginx
 [6]: https://wiki.debian.org/Cloud/AmazonEC2Image
+[7]: https://github.com/ghu-jenkins/
+[8]: https://github.com/settings/tokens/new

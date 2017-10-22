@@ -5,12 +5,8 @@
   vars:
     debian_codename: stretch
   handlers:
-  - name: reload nginx
-    become: true
-    systemd:
-      name: nginx
-      state: reloaded
   - name: restart jenkins
+    become: true
     systemd:
       name: jenkins
       state: restarted
@@ -41,7 +37,7 @@
     with_items:
     - nginx
     - python3
-    - python3-virtualenv
+    - virtualenv
     - openjdk-8-jre-headless
     - certbot
     - git
@@ -53,6 +49,9 @@
     - acl
     # For postgresql_* modules used below
     - python-psycopg2
+    # For building pip modules
+    - build-essential
+    - python3-dev
   # If this isn't its own task, ansible will run (effectively) apt-get install
   # openjdk-8-jre-headless jenkins, which might install jenkins before java,
   # which will cause the installation to fail.
@@ -63,10 +62,33 @@
     apt:
       name: jenkins
       state: latest
+  - name: jenkins job directories exist
+    become: true
+    notify:
+    - restart jenkins
+    file:
+      path: "/var/lib/jenkins/jobs/ghu-{{ item }}/"
+      state: directory
+      owner: jenkins
+      group: jenkins
+    with_items:
+    - develop
+    - master
+  - name: jenkins job config.xmls exist
+    become: true
+    become_user: jenkins
+    notify:
+    - restart jenkins
+    copy:
+      src: "jenkins/config-{{ item }}.xml"
+      dest: "/var/lib/jenkins/jobs/ghu-{{ item }}/config.xml"
+    with_items:
+    - develop
+    - master
   - name: ensure bower is installed
     become: true
     npm:
-      global: yes
+      global: true
       name: bower
       state: latest
   - name: ghu users exist
@@ -97,17 +119,24 @@
     with_items:
     - develop
     - master
+  # Used for certbot webroot validation
+  - name: certbot-overlay directory exists
+    become: true
+    file:
+      path: "/var/www/certbot-overlay/"
+      state: directory
   # Now, do the work of init_deploy.sh
   - name: deploy root dir exists
     become: true
     file:
-      path: "/var/deploy/ghu/"
+      path: "/var/www/ghu/"
       state: directory
   - name: deploy dirs exist
     become: true
     file:
-      path: "/var/deploy/ghu/{{ item }}"
+      path: "/var/www/ghu/{{ item }}"
       owner: jenkins
+      group: jenkins
       state: directory
     with_items:
     - develop
@@ -115,23 +144,100 @@
   - name: socket dirs exist
     become: true
     file:
-      path: "/var/deploy/ghu/{{ item }}/sock"
+      path: "/var/www/ghu/{{ item }}/sock"
       owner: "ghu-{{ item }}"
+      group: "ghu-{{ item }}"
       state: directory
+    with_items:
+    - develop
+    - master
+  - name: config.ini exists
+    become: true
+    become_user: jenkins
+    vars:
+      instance: "{{ item }}"
+    template:
+      src: "config.deploy-example.ini"
+      dest: "/var/www/ghu/{{ item }}/config.ini"
+    with_items:
+    - develop
+    - master
+  - name: deploy.config exists
+    become: true
+    become_user: jenkins
+    vars:
+      deploy_root: "/var/www/ghu/{{ item }}"
+      instance: "{{ item }}"
+    template:
+      src: "deploy.config"
+      dest: "/var/www/ghu/{{ item }}/deploy.config"
+    with_items:
+    - develop
+    - master
+  - name: deploy.sh exists
+    become: true
+    become_user: jenkins
+    copy:
+      src: "deploy.sh"
+      dest: "/var/www/ghu/{{ item }}/deploy.sh"
+      mode: 0755
+    with_items:
+    - develop
+    - master
+  - name: generate config.ini secrets
+    script: ../ghu_web/generate_key.py "/var/www/ghu/{{ item }}/config.ini"
+    become: true
+    become_user: jenkins
+    with_items:
+    - develop
+    - master
+  - name: do deployment
+    become: true
+    become_user: jenkins
+    command: "/var/www/ghu/{{ item }}/deploy.sh"
+    environment:
+      GHU_DEPLOY_CONFIG_PATH: "/var/www/ghu/{{ item }}/deploy.config"
+    with_items:
+    - develop
+    - master
+  - name: load sample data
+    become: true
+    become_user: "ghu-{{ item }}"
+    script: load_sample_data.sh
+    environment:
+      GHU_DEPLOY_CONFIG_PATH: "/var/www/ghu/{{ item }}/deploy.config"
+    with_items:
+    - develop
+    - master
+  - name: systemd unit symlinks exist
+    become: true
+    file:
+      path: "/etc/systemd/system/ghu-{{ item }}.service"
+      state: link
+      src: "/var/www/ghu/{{ item }}/ghu-{{ item }}.service"
+    with_items:
+    - develop
+    - master
+  # For good measure. For example, if you rm -rf /var/www/ghu, systemd will
+  # still have the old units opened, so you need to daemon-reload and restart
+  # them even though the symlinks from /etc/ already exist, so this can't be a
+  # handler for the `systemd unit symlinks exist' task
+  - name: restart systemd units
+    become: true
+    systemd:
+      daemon_reload: true
+      name: "ghu-{{ item }}.service"
+      state: restarted
     with_items:
     - develop
     - master
   - name: nginx default site does not exist
     become: true
-    notify:
-    - reload nginx
     file:
       path: /etc/nginx/sites-enabled/default
       state: absent
   - name: nginx sites available
     become: true
-    notify:
-    - reload nginx
     template:
       src: "nginx-sites/{{ item }}"
       dest: "/etc/nginx/sites-available/{{ item }}"
@@ -141,8 +247,6 @@
     - jenkins
   - name: nginx sites enabled
     become: true
-    notify:
-    - reload nginx
     file:
       path: "/etc/nginx/sites-enabled/{{ item }}"
       state: link
@@ -151,3 +255,23 @@
     - ghu
     - http
     - jenkins
+  - name: restart nginx
+    become: true
+    systemd:
+      name: nginx
+      state: restarted
+  - name: request ssl certificate
+    become: true
+    script: request_cert.sh
+    tags:
+    - sslcert
+  - name: configure nginx ssl
+    become: true
+    copy:
+      src: nginx-ssl.conf
+      dest: /etc/nginx/conf.d/ssl.conf
+  - name: restart nginx again
+    become: true
+    systemd:
+      name: nginx
+      state: restarted
