@@ -200,11 +200,13 @@
     with_items:
     - develop
     - master
-  - name: load sample data
+  - name: load sample data and set admin pass
     become: true
     become_user: "ghu-{{ item }}"
     script: load_sample_data.sh
     environment:
+      # TODO: Find a more secure way to pass this password in
+      GHU_ADMIN_PASSWORD: "{{ vault_django_admin_password }}"
       GHU_DEPLOY_CONFIG_PATH: "/var/www/ghu/{{ item }}/deploy.config"
     with_items:
     - develop

@@ -154,6 +154,7 @@ Here's how you'd set up a new server running ghu:
     create secrets.yml`, and then adding the following contents to the vault:
 
         vault_postgresql_password: POSTGRES_PASSWORD_HERE
+        vault_django_admin_password: DJANGO_ADMIN_PASSWORD_HERE
 
  7. Now the website should be running, but you still need to set up Jenkins.
     See the following section for that.
