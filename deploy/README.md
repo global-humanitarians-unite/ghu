@@ -96,13 +96,20 @@ A rundown of `ls -1`: What each file does
        6. Collects static files (`manage.py collectstatic`)
  * `ghu.service`: [systemd unit][4] for `uwsgi` which runs `run.sh`
  * `nginx.conf`: snippet of [nginx][5] configuration
- * `nginx-sites`: Configuration for each nginx site. Copied over initially by Ansible
+ * `nginx-ssl.conf`: global [nginx][5] SSL configuration. The ansible script
+   copies this to `/etc/nginx/conf.d/ssl.conf`
+ * `nginx-sites/`: Configuration for each nginx site. Copied over initially by
+   Ansible to `/etc/nginx/sites-available`
  * `README.md`: You're reading this!
  * `requirements.txt`: Deployment-specific python dependencies.
- * `fresh_checkout.sh` will install dependencies from `/requirements.txt`, then
-   this
  * `run.sh`: Shell script that runs `uwsgi` will all the right configuration
    flags
+ * `request_cert.sh`: Shell script that calls `certbot` with the name of all
+   our domains. Run on remote server by Ansible script
+ * `jenkins/`: Jenkins jobs run automatically by GitHub webhooks
+ * `secrets.yml`: An ansible vault containing all kinds of credentials that
+   future maintainers might need. You can view it with `ansible-vault view
+   secrets.yml --ask-vault-pass`.
  * `ghu.yml`: The ansible script for initial setup. See the section below for
    details.
 
