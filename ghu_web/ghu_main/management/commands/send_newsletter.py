@@ -7,9 +7,9 @@ class Command(BaseCommand):
         super(Command, self).__init__()
 
     def add_arguments(self, parser):
-        parser.add_argument('subject', nargs='+', type=str)
-        parser.add_argument('body', nargs='+', type=str)
-        parser.add_argument('recipients', nargs='+', type=list)
+        parser.add_argument('subject', type=str)
+        parser.add_argument('body', type=str)
+        parser.add_argument('recipients', type=str)
 
     def handle(self, *args, **options):
-        EmailAPI.send_email(options['subject'], options['body'], options['recipients'])
+        EmailAPI.send_email(options['subject'], options['body'], options['recipients'].split(','))
