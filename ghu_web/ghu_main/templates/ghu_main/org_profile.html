@@ -3,11 +3,10 @@
 {% block title %}Profiles{% endblock %}
 {% block styles %}
     {{ block.super }}
-    <!-- <link href="{% static "/ghu_main/css/toolkits.css" %}" rel="stylesheet"> -->
     <link href="{% static "/ghu_main/css/generic-list.css" %}" rel="stylesheet">
     <style>
-      strong {
-          display:inline !important;
+      p strong:first-child {
+          display:inline;
       }
     </style>
 {% endblock %}
