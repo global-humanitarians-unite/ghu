@@ -42,6 +42,8 @@ if 'mail' in cfg:
 
     sec = cfg['mail']
     EMAIL_SOURCE = sec['source']
+    AWS_ACCESS_KEY_ID = sec['acces_key']
+    AWS_SECRET_ACCESS_KEY = sec['secret_key']
 else:
     # If not configured (development), print emails to the console
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
