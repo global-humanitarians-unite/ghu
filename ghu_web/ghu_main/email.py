@@ -1,7 +1,8 @@
 from django.core.mail import send_mail
+from django.conf import settings
 
 class EmailAPI(object):
-    """docstring for EmailAPI."""
+    """This API provides methods for managing mail through the app"""
     def __init__(self):
         super(EmailAPI, self).__init__()
 
@@ -9,7 +10,7 @@ class EmailAPI(object):
         send_mail(
             subject,
             message,
-            'contact@globalhumanitariansunite.org',
+            settings.EMAIL_SOURCE,
             recipients,
             fail_silently=False,
         )

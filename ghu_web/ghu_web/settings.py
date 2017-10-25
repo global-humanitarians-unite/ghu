@@ -37,17 +37,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Configure SMTP if [mail] section exists in config.ini
 if 'mail' in cfg:
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_BACKEND = 'django_ses.SESBackend'
 
     sec = cfg['mail']
-    EMAIL_HOST = sec['host']
-    EMAIL_PORT = sec.get('port', None)
-    # SSL connection (implicit)
-    EMAIL_USE_SSL = sec.get('use_ssl', '').lower() == 'true'
-    # STARTTLS (explicit)
-    EMAIL_USE_TLS = sec.get('use_tls', '').lower() == 'true'
-    EMAIL_HOST_USER = sec['user']
-    EMAIL_HOST_PASSWORD = sec['password']
+    EMAIL_SOURCE = sec['source']
 else:
     # If not configured (development), print emails to the console
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -172,5 +166,3 @@ SETTINGS_EXPORT = [
 ]
 
 FEEDBACK_FORM_URL = 'https://goo.gl/forms/OtvG7Y8OFtUmBPaR2'
-
-EMAIL_BACKEND = 'django_ses.SESBackend'
