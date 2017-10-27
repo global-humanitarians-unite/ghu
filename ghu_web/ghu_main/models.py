@@ -3,7 +3,8 @@ from django.core.exceptions import ValidationError
 from ordered_model.models import OrderedModel
 
 class NavbarEntry(OrderedModel):
-    URL_CHOICES = (('ghu_main:toolkits', 'Toolkits listing'),)
+    URL_CHOICES = (('ghu_main:toolkits', 'Toolkits listing'),
+                    ('ghu_main:organizations', 'Organizations'))
 
     label = models.CharField(max_length=256)
     page = models.ForeignKey('Page', on_delete=models.CASCADE, null=True,

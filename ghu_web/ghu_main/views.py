@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import Http404
+from .forms import SearchForm
 from .models import Page, NavbarEntry, Toolkit, ToolkitPage, OrgProfile
 def page(request, slug=None):
     if slug is None:
@@ -18,7 +19,10 @@ def page(request, slug=None):
     return render(request, template, context)
 
 def organizations(request):
-    context = {'organizations': OrgProfile.objects.all(),
+    form = SearchForm(request.GET)
+    form.is_valid()
+    context = {'organizations': OrgProfile.objects.filter(name__search = form.cleaned_data['search_terms']),
+                'form': form,
                 'navbar': NavbarEntry.objects.all()}
     return render(request, 'ghu_main/organizations.html', context)
 
