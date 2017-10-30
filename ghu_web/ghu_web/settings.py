@@ -35,17 +35,18 @@ DEBUG = not bool(ALLOWED_HOSTS)
 # Where to collect static files
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-# Configure SMTP if [mail] section exists in config.ini
-if 'mail' in cfg:
+EMAIL_SOURCE = cfg['mail']['source']
+
+# If the [aws] section exists in config.ini, load AWS creds and use
+# Amazon SES with those creds
+if 'aws' in cfg:
     # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_BACKEND = 'django_ses.SESBackend'
-
-    sec = cfg['mail']
-    EMAIL_SOURCE = sec['source']
-    AWS_ACCESS_KEY_ID = sec['acces_key']
-    AWS_SECRET_ACCESS_KEY = sec['secret_key']
+    AWS_ACCESS_KEY_ID = cfg['aws']['access_key']
+    AWS_SECRET_ACCESS_KEY = cfg['aws']['secret_key']
 else:
-    # If not configured (development), print emails to the console
+    # If AWS keys are not configured (development), print emails to the
+    # console
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Email error messages to the configured addresses
