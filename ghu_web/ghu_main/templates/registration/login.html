@@ -1,0 +1,30 @@
+{% extends "canteen_browser/base.html" %}
+{% load static %}
+{% block title %}Login{% endblock %}
+{% block content %}
+    <div class="container">
+        <form method="post" id="register-form">
+            {{ form.non_field_errors }}
+            <h2>Log in</h2>
+            {% csrf_token %}
+            {{ form.username.errors }}
+            {{ form.username.label_tag }}
+            {{ form.username }}
+            {{ form.password.errors }}
+            {{ form.password.label_tag }}
+            {{ form.password }}
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+            <a id="register-blurb" href="{% url 'canteen_browser:register' %}">Create a new account</a>
+        </form>
+    </div>
+{% endblock %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static "/canteen_browser/css/register.css" %}">
+    <style>
+        #register-blurb {
+            display: block;
+            margin-top: 8px;
+            text-align: center;
+        }
+    </style>
+{% endblock %}
