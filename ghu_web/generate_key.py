@@ -14,7 +14,7 @@ import os.path
 from configparser import ConfigParser
 from shutil import copyfile
 
-POPULATION = string.ascii_letters + string.punctuation + string.digits
+POPULATION = string.ascii_letters + string.digits
 KEY_LEN = 512
 SECRETS_SECTION = """
 [secrets]
