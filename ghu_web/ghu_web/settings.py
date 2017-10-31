@@ -62,7 +62,6 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.postgres',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
@@ -111,6 +110,13 @@ WSGI_APPLICATION = 'ghu_web.wsgi.application'
 if cfg['db']['engine'] == 'sqlite3' and 'name' in cfg['db'] \
                                     and not os.path.isabs(cfg['db']['name']):
     cfg['db']['name'] = os.path.join(BASE_DIR, cfg['db']['name'])
+
+# Currently, only postgres has full text search
+if cfg['db']['engine'] == 'postgresql':
+    INSTALLED_APPS.append('django.contrib.postgres')
+    HAS_FULL_TEXT_SEARCH = True
+else:
+    HAS_FULL_TEXT_SEARCH = False
 
 DATABASES = {
     'default': {

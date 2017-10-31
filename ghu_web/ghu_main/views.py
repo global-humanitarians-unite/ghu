@@ -21,7 +21,7 @@ def page(request, slug=None):
 def organizations(request):
     form = SearchForm(request.GET)
     form.is_valid()
-    context = {'organizations': OrgProfile.objects.filter(name__search = form.cleaned_data['search_terms']),
+    context = {'organizations': OrgProfile.objects.search(form.cleaned_data['search_terms']),
                 'form': form,
                 'navbar': NavbarEntry.objects.all()}
     return render(request, 'ghu_main/organizations.html', context)
