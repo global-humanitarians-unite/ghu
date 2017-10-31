@@ -129,7 +129,10 @@ Here's how you'd set up a new server running ghu:
     and 443.
  3. Also in the AWS console, go into Route 53 and set the hostnames seen in
     `request_cert.sh` to point to the IP address of the instance you've created.
- 4. Save the ssh key for the instance to `~/.ssh/id_rsa_ghu` or whatever.
+ 4. Again in the AWS console, create an IAM user named `ghu-master` (or
+    something like that) and give it full access to SES. Generate a access key
+    and secret key for it.
+ 5. Save the ssh key for the instance to `~/.ssh/id_rsa_ghu` or whatever.
     `chmod` it to 600 or something decent, and then add the following to
     `~/.ssh/config`:
 
@@ -140,12 +143,12 @@ Here's how you'd set up a new server running ghu:
             IdentityFile ~/.ssh/id_rsa_ghu
             IdentitiesOnly yes
 
- 5. Now you should be able to ssh into the machine with `ssh ghu`, so create a
+ 6. Now you should be able to ssh into the machine with `ssh ghu`, so create a
     modest Ansible inventory file `hosts` with one line: `ghu`:
 
         $ printf 'ghu\n' >hosts
 
- 6. Finally, you can run the playbook with:
+ 7. Finally, you can run the playbook with:
 
         $ ansible-playbook --ask-vault-pass -i hosts ghu.yml
 
@@ -155,13 +158,18 @@ Here's how you'd set up a new server running ghu:
 
         vault_postgresql_password: POSTGRES_PASSWORD_HERE
         vault_django_admin_password: DJANGO_ADMIN_PASSWORD_HERE
+        # Amazon API creds for the IAM user for prod (found above)
+        vault_aws_access_key: AWS_ACCESS_KEY_HERE
+        vault_aws_secret_key: AWS_SECRET_KEY_HERE
 
- 7. Now the website should be running, but you still need to set up Jenkins.
+ 8. Now the website should be running, but you still need to set up Jenkins.
     See the following section for that.
 
 You can re-run `ansible-playbook` with the command line shown above whenever
 you want to update server configuration that lives outside `$deploy_dir`, such
-as overall nginx configuration.
+as `config.ini` or overall nginx configuration. If you want to target only
+develop or only master, pass `--extra-vars='{"branches":["develop"]}'` or
+`--extra-vars='{"branches":["master"]}'` as an argument to `ansible-playbook`.
 
 Jenkins Setup
 -------------

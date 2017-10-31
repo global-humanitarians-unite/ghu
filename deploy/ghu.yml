@@ -4,6 +4,9 @@
   remote_user: admin
   vars:
     debian_codename: stretch
+    branches:
+    - develop
+    - master
   handlers:
   - name: restart jenkins
     become: true
@@ -71,9 +74,7 @@
       state: directory
       owner: jenkins
       group: jenkins
-    with_items:
-    - develop
-    - master
+    with_items: "{{ branches }}"
   - name: jenkins job config.xmls exist
     become: true
     become_user: jenkins
@@ -82,9 +83,7 @@
     copy:
       src: "jenkins/config-{{ item }}.xml"
       dest: "/var/lib/jenkins/jobs/ghu-{{ item }}/config.xml"
-    with_items:
-    - develop
-    - master
+    with_items: "{{ branches }}"
   - name: ensure bower is installed
     become: true
     npm:
@@ -96,9 +95,7 @@
     user:
       name: "ghu-{{ item }}"
       state: present
-    with_items:
-    - develop
-    - master
+    with_items: "{{ branches }}"
   - name: postgres users exist
     become: true
     become_user: postgres
@@ -106,9 +103,7 @@
       name: "ghu-{{ item }}"
       password: "{{ vault_postgresql_password }}"
       state: present
-    with_items:
-    - develop
-    - master
+    with_items: "{{ branches }}"
   - name: postgres databases exist
     become: true
     become_user: postgres
@@ -116,9 +111,7 @@
       name: "ghu-{{ item }}"
       owner: "ghu-{{ item }}"
       state: present
-    with_items:
-    - develop
-    - master
+    with_items: "{{ branches }}"
   # Used for certbot webroot validation
   - name: certbot-overlay directory exists
     become: true
@@ -138,9 +131,7 @@
       owner: jenkins
       group: jenkins
       state: directory
-    with_items:
-    - develop
-    - master
+    with_items: "{{ branches }}"
   - name: socket dirs exist
     become: true
     file:
@@ -148,9 +139,7 @@
       owner: "ghu-{{ item }}"
       group: "ghu-{{ item }}"
       state: directory
-    with_items:
-    - develop
-    - master
+    with_items: "{{ branches }}"
   - name: config.ini exists
     become: true
     become_user: jenkins
@@ -159,9 +148,7 @@
     template:
       src: "config.deploy-example.ini"
       dest: "/var/www/ghu/{{ item }}/config.ini"
-    with_items:
-    - develop
-    - master
+    with_items: "{{ branches }}"
   - name: deploy.config exists
     become: true
     become_user: jenkins
@@ -171,9 +158,7 @@
     template:
       src: "deploy.config"
       dest: "/var/www/ghu/{{ item }}/deploy.config"
-    with_items:
-    - develop
-    - master
+    with_items: "{{ branches }}"
   - name: deploy.sh exists
     become: true
     become_user: jenkins
@@ -181,25 +166,19 @@
       src: "deploy.sh"
       dest: "/var/www/ghu/{{ item }}/deploy.sh"
       mode: 0755
-    with_items:
-    - develop
-    - master
+    with_items: "{{ branches }}"
   - name: generate config.ini secrets
     script: ../ghu_web/generate_key.py "/var/www/ghu/{{ item }}/config.ini"
     become: true
     become_user: jenkins
-    with_items:
-    - develop
-    - master
+    with_items: "{{ branches }}"
   - name: do deployment
     become: true
     become_user: jenkins
     command: "/var/www/ghu/{{ item }}/deploy.sh"
     environment:
       GHU_DEPLOY_CONFIG_PATH: "/var/www/ghu/{{ item }}/deploy.config"
-    with_items:
-    - develop
-    - master
+    with_items: "{{ branches }}"
   - name: load sample data and set admin pass
     become: true
     become_user: "ghu-{{ item }}"
@@ -208,18 +187,14 @@
       # TODO: Find a more secure way to pass this password in
       GHU_ADMIN_PASSWORD: "{{ vault_django_admin_password }}"
       GHU_DEPLOY_CONFIG_PATH: "/var/www/ghu/{{ item }}/deploy.config"
-    with_items:
-    - develop
-    - master
+    with_items: "{{ branches }}"
   - name: systemd unit symlinks exist
     become: true
     file:
       path: "/etc/systemd/system/ghu-{{ item }}.service"
       state: link
       src: "/var/www/ghu/{{ item }}/ghu-{{ item }}.service"
-    with_items:
-    - develop
-    - master
+    with_items: "{{ branches }}"
   # For good measure. For example, if you rm -rf /var/www/ghu, systemd will
   # still have the old units opened, so you need to daemon-reload and restart
   # them even though the symlinks from /etc/ already exist, so this can't be a
@@ -230,9 +205,7 @@
       daemon_reload: true
       name: "ghu-{{ item }}.service"
       state: restarted
-    with_items:
-    - develop
-    - master
+    with_items: "{{ branches }}"
   - name: nginx default site does not exist
     become: true
     file:
