@@ -156,11 +156,14 @@ Here's how you'd set up a new server running ghu:
     deleting `secrets.yml` and creating another by running `ansible-vault
     create secrets.yml`, and then adding the following contents to the vault:
 
-        vault_postgresql_password: POSTGRES_PASSWORD_HERE
-        vault_django_admin_password: DJANGO_ADMIN_PASSWORD_HERE
+        vault_postgresql_password: "POSTGRES_PASSWORD_HERE"
+        vault_django_admin_password: "DJANGO_ADMIN_PASSWORD_HERE"
+        # You can get this by running ./generate_key bob.ini in ghu_web,
+        # then copying over the generated secret_key, then deleting bob.ini
+        vault_django_secret_key: "DJANGO_SECRET_KEY_HERE"
         # Amazon API creds for the IAM user for prod (found above)
-        vault_aws_access_key: AWS_ACCESS_KEY_HERE
-        vault_aws_secret_key: AWS_SECRET_KEY_HERE
+        vault_aws_access_key: "AWS_ACCESS_KEY_HERE"
+        vault_aws_secret_key: "AWS_SECRET_KEY_HERE"
 
  8. Now the website should be running, but you still need to set up Jenkins.
     See the following section for that.
