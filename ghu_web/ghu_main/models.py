@@ -1,6 +1,33 @@
+from django.conf import settings
 from django.db import models
+from django.db.models import Q
 from django.core.exceptions import ValidationError
 from ordered_model.models import OrderedModel
+
+# Useful for attempting full-text search on fields
+class SearchManager(models.Manager):
+    def __init__(self, search_fields):
+        super().__init__()
+        self.search_fields = search_fields
+
+    def search(self, terms):
+        # Currently, field__search='foo' (full text search) is supported
+        # only on postgres, but fake it on other backends
+        if settings.HAS_FULL_TEXT_SEARCH:
+            suffix = '__search'
+        else:
+            suffix = '__icontains'
+
+        query = None
+        for search_field in self.search_fields:
+            q = Q(**{search_field + suffix: terms})
+
+            if query is None:
+                query = q
+            else:
+                query = query | q
+
+        return self.filter(query)
 
 class NavbarEntry(OrderedModel):
     URL_CHOICES = (('ghu_main:toolkits', 'Toolkits listing'),
@@ -69,6 +96,8 @@ class OrgProfile(models.Model):
     phone = models.CharField(max_length=256)
     summary = models.CharField(max_length=256, null=True)
     description = models.TextField()
+
+    objects = SearchManager(('name', 'summary', 'description'))
 
     def __str__(self):
         return 'OrgProfile: {}, slug: {}'.format(self.name, self.slug)
