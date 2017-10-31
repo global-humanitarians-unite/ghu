@@ -167,11 +167,6 @@
       dest: "/var/www/ghu/{{ item }}/deploy.sh"
       mode: 0755
     with_items: "{{ branches }}"
-  - name: generate config.ini secrets
-    script: ../ghu_web/generate_key.py "/var/www/ghu/{{ item }}/config.ini"
-    become: true
-    become_user: jenkins
-    with_items: "{{ branches }}"
   - name: do deployment
     become: true
     become_user: jenkins
