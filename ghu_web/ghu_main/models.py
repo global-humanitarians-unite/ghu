@@ -103,27 +103,3 @@ class OrgProfile(models.Model):
 
     def __str__(self):
         return 'OrgProfile: {}, slug: {}'.format(self.name, self.slug)
-
-class Profile(models.Model):
-    #user = models.OneToOneField(User, on_delete=models.CASCADE)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
-    phone = models.CharField(max_length=64, blank=True)
-    address = models.CharField(max_length=512, blank=True)
-    bio = models.TextField(blank=True)
-
-    def get_group(self):
-        if self.user.is_superuser:
-            return 'Administrators'
-        else:
-            # For now, assume user is in only one group
-            # XXX Don't
-            group = self.user.groups.first()
-            return group.name if group else None
-
-    def set_group(self, group):
-        if group == 'Administrators':
-            # Don't do anything for now; granting admin permissions to
-            # anyone is too dangerous
-            pass
-        else:
-            Group.objects.get(name=group).user_set.add(self.user)
