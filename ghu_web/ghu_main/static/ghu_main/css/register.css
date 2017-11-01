@@ -1,0 +1,24 @@
+/* CSS common between register and login forms */
+
+#register-form {
+    max-width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#register-form h2 {
+    text-align: center;
+}
+label, input {
+    display: block;
+    width: 100%;
+}
+input {
+    margin-bottom: 8px;
+}
+button {
+    margin-top: 16px;
+}
+ul.errorlist {
+    color: darkred;
+    list-style-type: circle;
+}

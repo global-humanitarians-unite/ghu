@@ -1,4 +1,4 @@
-{% extends "canteen_browser/base.html" %}
+{% extends "ghu_main/base.html" %}
 {% load static %}
 {% block title %}Login{% endblock %}
 {% block content %}
@@ -14,12 +14,12 @@
             {{ form.password.label_tag }}
             {{ form.password }}
             <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
-            <a id="register-blurb" href="{% url 'canteen_browser:register' %}">Create a new account</a>
+            <a id="register-blurb" href="{% url 'ghu_main:register' %}">Create a new account</a>
         </form>
     </div>
 {% endblock %}
 {% block styles %}
-    <link rel="stylesheet" href="{% static "/canteen_browser/css/register.css" %}">
+    <link rel="stylesheet" href="{% static "/ghu_main/css/register.css" %}">
     <style>
         #register-blurb {
             display: block;

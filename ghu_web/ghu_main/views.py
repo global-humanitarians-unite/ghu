@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.contrib.auth import login
+from django.shortcuts import redirect, render
 from django.http import Http404
-from .forms import SearchForm
+from .forms import RegisterForm, SearchForm
 from .models import Page, NavbarEntry, Toolkit, ToolkitPage, OrgProfile
+
 def page(request, slug=None):
     if slug is None:
         slug = ''
@@ -59,3 +61,17 @@ def org_profile(request, slug):
                'navbar': NavbarEntry.objects.all()
                }
     return render(request, 'ghu_main/org_profile.html', context)
+
+def register(request):
+    form = RegisterForm(request.POST if request.method == 'POST' else None)
+
+    if request.method == 'POST' and form.is_valid():
+        user = form.save()
+        login(request, user)
+        return redirect('ghu_main:page')
+    else:
+        ctx = {
+            'form': form,
+        }
+
+        return render(request, 'registration/register.html', ctx)
