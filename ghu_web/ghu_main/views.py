@@ -68,7 +68,7 @@ def register(request):
     if request.method == 'POST' and form.is_valid():
         user = form.save()
         login(request, user)
-        return redirect('ghu_main:page')
+        return redirect('ghu_main:home')
     else:
         ctx = {
             'form': form,
