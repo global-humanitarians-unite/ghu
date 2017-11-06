@@ -16,9 +16,13 @@
       </div>
     </div>
     <a id="feedback" href="{{ settings.FEEDBACK_FORM_URL }}" target="_blank">Feedback</a>
-    <a id="login" href="{% url 'ghu_main:login' %}">Log in</a>
-    <a id="logout" href="{% url 'ghu_main:logout' %}">Log out</a>
-    <a id="register" href="{% url 'ghu_main:register' %}">Register</a>
+    {% if user.is_authenticated %}
+        <a id="logout" href="{% url 'ghu_main:logout' %}">Log out</a>
+    {% else %}
+        <a id="login" href="{% url 'ghu_main:login' %}">Log in</a>
+        <a id="register" href="{% url 'ghu_main:register' %}">Register</a>
+    {% endif %}
+
     <nav class="navbar navbar-default collapsed">
         <div class="container-fluid">
             <div class="navbar-header">
