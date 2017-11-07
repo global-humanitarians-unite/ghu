@@ -24,13 +24,11 @@ def organizations(request):
     form = SearchForm(request.GET)
     form.is_valid()
     context = {'organizations': OrgProfile.objects.search(form.cleaned_data['search_terms']),
-                'form': form,
-                'navbar': NavbarEntry.objects.all()}
+                'form': form}
     return render(request, 'ghu_main/organizations.html', context)
 
 def toolkits(request):
-    context = {'toolkits': Toolkit.objects.all(),
-               'navbar': NavbarEntry.objects.all()}
+    context = {'toolkits': Toolkit.objects.all()}
     return render(request, 'ghu_main/toolkits.html', context)
 
 def toolkit(request, slug):
@@ -39,7 +37,7 @@ def toolkit(request, slug):
     except Toolkit.DoesNotExist:
         raise Http404()
 
-    context = {'toolkit': toolkit, 'navbar': NavbarEntry.objects.all()}
+    context = {'toolkit': toolkit}
     return render(request, 'ghu_main/toolkit.html', context)
 
 def toolkitpage(request, toolkit_slug, toolkitpage_slug):
@@ -48,7 +46,7 @@ def toolkitpage(request, toolkit_slug, toolkitpage_slug):
     except ToolkitPage.DoesNotExist:
         raise Http404()
 
-    context = {'toolkitpage': toolkitpage, 'navbar': NavbarEntry.objects.all()}
+    context = {'toolkitpage': toolkitpage}
     return render(request, 'ghu_main/toolkitpage.html', context)
 
 def org_profile(request, slug):
@@ -57,9 +55,7 @@ def org_profile(request, slug):
     except Toolkit.DoesNotExist:
         raise Http404()
 
-    context = {'profiles': profile,
-               'navbar': NavbarEntry.objects.all()
-               }
+    context = {'profiles': profile}
     return render(request, 'ghu_main/org_profile.html', context)
 
 def register(request):
