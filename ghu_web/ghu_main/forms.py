@@ -12,17 +12,13 @@ def unused_username(username):
 class RegisterForm(forms.Form):
     username = forms.CharField(max_length=User._meta.get_field('username').max_length,
                                validators=(UnicodeUsernameValidator, unused_username))
+    email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput, validators=(validate_password,))
 
     def save(self):
         user = User.objects.create_user(username=self.cleaned_data['username'],
+                                        email=self.cleaned_data['email'],
                                         password=self.cleaned_data['password'])
-        # # Make a profile for this user
-        # profile = Profile.objects.create(user=user)
-        # # For now, make everyone who registers a User
-        # # XXX Don't hardcode this
-        # profile.set_group('Users')
-        # profile.save()
 
         return user
 
