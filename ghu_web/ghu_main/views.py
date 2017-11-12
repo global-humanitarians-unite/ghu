@@ -1,6 +1,13 @@
+from django.core.exceptions import PermissionDenied
 from django.contrib.auth import login
+from django.contrib.auth.tokens import default_token_generator
 from django.shortcuts import redirect, render
 from django.http import Http404
+from django.urls import reverse
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes
+from ghu_global.models import User
+from .email import EmailAPI
 from .forms import RegisterForm, SearchForm
 from .models import Page, NavbarEntry, Toolkit, ToolkitPage, OrgProfile
 
@@ -60,14 +67,34 @@ def org_profile(request, slug):
 
 def register(request):
     form = RegisterForm(request.POST if request.method == 'POST' else None)
+    ctx = {}
 
     if request.method == 'POST' and form.is_valid():
         user = form.save()
+
+        token = default_token_generator.make_token(user)
+        uid = urlsafe_base64_encode(force_bytes(user.pk))
+        confirm_url = request.build_absolute_uri(reverse('ghu_main:activate', kwargs=dict(token=token, uid=uid)))
+
+        EmailAPI.send_email(subject='Confirm GHU Account',
+                            message='Click the following link to confirm your '
+                                    'acccount: {}\n\nThanks,\nGHU Staff'
+                                    .format(confirm_url),
+                            recipients=(user.email,))
+    else:
+        ctx['form'] = form
+
+    return render(request, 'registration/register.html', ctx)
+
+def activate(request, uid, token):
+    """Activate a newly-registered (but inactive) account."""
+
+    uid = urlsafe_base64_decode(uid)
+    user = User.objects.get(pk=uid)
+    if not user.is_active and default_token_generator.check_token(user, token):
+        user.is_active = True
+        user.save()
         login(request, user)
         return redirect('ghu_main:home')
     else:
-        ctx = {
-            'form': form,
-        }
-
-        return render(request, 'registration/register.html', ctx)
+        raise PermissionDenied()

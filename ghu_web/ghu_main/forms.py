@@ -3,7 +3,6 @@ from django.core.exceptions import ValidationError
 from ghu_global.models import User
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.contrib.auth.password_validation import validate_password
-# from ghu_main.models import Profile
 
 def unused_username(username):
     if User.objects.filter(username=username).count() > 0:
@@ -18,7 +17,8 @@ class RegisterForm(forms.Form):
     def save(self):
         user = User.objects.create_user(username=self.cleaned_data['username'],
                                         email=self.cleaned_data['email'],
-                                        password=self.cleaned_data['password'])
+                                        password=self.cleaned_data['password'],
+                                        is_active=False)
 
         return user
 
