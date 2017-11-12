@@ -3,22 +3,25 @@
 {% block title %} Register {% endblock %}
 {% block content %}
     <div class="container">
-        {% csrf_token %}
-        <form method="post" id="register-form">
-            {{ form.non_field_errors }}
-            <h2>Register</h2>
-            {% csrf_token %}
-            {{ form.username.errors }}
-            {{ form.username.label_tag }}
-            {{ form.username }}
-            {{ form.email.errors }}
-            {{ form.email.label_tag }}
-            {{ form.email }}
-            {{ form.password.errors }}
-            {{ form.password.label_tag }}
-            {{ form.password }}
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
-        </form>
+        {% if form %}
+            <form method="post" id="register-form">
+                {{ form.non_field_errors }}
+                <h2>Register</h2>
+                {% csrf_token %}
+                {{ form.username.errors }}
+                {{ form.username.label_tag }}
+                {{ form.username }}
+                {{ form.email.errors }}
+                {{ form.email.label_tag }}
+                {{ form.email }}
+                {{ form.password.errors }}
+                {{ form.password.label_tag }}
+                {{ form.password }}
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+            </form>
+        {% else %}
+            <p>Check your email. We have sent you a confirmation link.</p>
+        {% endif %}
     </div>
 {% endblock %}
 {% block styles %}
