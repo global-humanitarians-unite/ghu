@@ -13,6 +13,10 @@ class SearchManager(models.Manager):
         self.search_fields = search_fields
 
     def search(self, terms):
+        # Return everything for an empty search
+        if not terms.strip():
+            return self.all()
+
         # Currently, field__search='foo' (full text search) is supported
         # only on postgres, but fake it on other backends
         if settings.HAS_FULL_TEXT_SEARCH:
