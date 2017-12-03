@@ -27,3 +27,9 @@ Running a Debug Server
 After activating the virtualenv and `cd`ing to `ghu_web/`:
 
     $ python manage.py runserver
+
+Deployment
+----------
+
+See the `/deploy/` directory in this repository for instructions on
+deploying the site.
