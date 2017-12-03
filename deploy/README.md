@@ -46,9 +46,10 @@ We use the following deployment process now:
     to https://develop.globalhumanitariansunite.org/ (QA, for pushes to the
     `develop` branch) or https://globalhumanitarainsunite.org/ (production, for
     pushes to the `master` branch)
- 2. https://develop.austinjadams.com/ matches the setup of production
-    environment almost exactly, and gets rebuilt for any change to `develop`,
-    so after merging a PR you can make sure your change works as expected
+ 2. https://develop.globalhumanitariansunite.org/ matches the setup of
+    production environment almost exactly, and gets rebuilt for any change to
+    `develop`, so after merging a PR you can make sure your change works as
+    expected
  3. `deploy.sh` reloads `uwsgi` by [`touch`][3]ing a file `uwsgi` watches for
     changes. While it restarts, `uwsgi` does not close the listen socket, so
     requests won't get lost
