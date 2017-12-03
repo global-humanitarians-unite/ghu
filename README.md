@@ -3,6 +3,9 @@ Global Humanitarians Unite
 
 This is the Global Humanitarians Unite website prototype.
 
+See `LICENSE` to read the license (Apache 2.0), and `CHANGELOG.md` for the
+release log.
+
 Environment Setup
 -----------------
 
