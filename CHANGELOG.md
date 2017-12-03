@@ -31,6 +31,9 @@ v1.2.1 - 2017-12-02
 
 ### Known issues
 
+- Poor search engine optimization. Searching Google for
+  `site:globalhumanitariansunite.org` shows a strange site description, for
+  example.
 - [Fixtures][3] are missing for setting up navigation bar, so you have to
   create the navigation bar by hand on fresh installations.
 - No rate-limiting on registration confirmation emails.
